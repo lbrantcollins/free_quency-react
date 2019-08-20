@@ -30,7 +30,7 @@ class Register extends Component {
     data.append('file', this.state.image);
     data.append('username', this.state.username);
     data.append('password', this.state.password);
-    data.append('password', this.state.about);
+    data.append('about', this.state.about);
     data.append('email', this.state.email);
 
     console.log(data.entries(), ' this is data')
@@ -40,14 +40,14 @@ class Register extends Component {
 
     const registerCall = this.props.register(data);
 
-    registerCall.then((data) => {
-      console.log(data)
-        if(data.status.message === "Success"){
-          this.props.history.push('/profile')
-        } else {
-          console.log(data, ' this should have an error message? How could you display that on the screen')
-        }
-    })
+    // registerCall.then((data) => {
+    //   console.log(data)
+    //     if(data.status.message === "Success"){
+    //       this.props.history.push('/profile')
+    //     } else {
+    //       console.log(data, ' this should have an error message? How could you display that on the screen')
+    //     }
+    // })
   }
   render(){
     return (
