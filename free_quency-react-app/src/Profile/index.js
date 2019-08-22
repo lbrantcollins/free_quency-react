@@ -25,12 +25,7 @@ class Profile extends Component {
 	}
 
 
-
 	render() {
-
-
-
-		console.log(this.props.medias);
 
 		return (
 
@@ -47,13 +42,17 @@ class Profile extends Component {
 
 
 				<Menu.Menu>
-					<Menu.Item><Link onClick >My Posted Media</Link></Menu.Item>
-					<Menu.Item><Link onClick >My Favorites</Link></Menu.Item>
+					<Menu.Item>
+						<Link to='#' onClick={this.toggleToPosted} >Posted Media</Link>
+					</Menu.Item>
+					<Menu.Item>
+						<Link to='#' onClick={this.toggleToFavorites} >Favorites</Link>
+					</Menu.Item>
 				</Menu.Menu> 
 
 				{this.state.showPostedMedia ? <MediaList medias={this.props.user.posted_media}/> : <MediaList medias={this.props.user.favorited_media}/>}
-			</div>
 
+			</div>
 
 		)
 	}

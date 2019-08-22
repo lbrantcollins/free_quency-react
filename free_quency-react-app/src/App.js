@@ -53,7 +53,7 @@ class App extends Component {
 
     try {
 
-      const registerResponse = await fetch('http://localhost:8000/user/1', {
+      const userResponse = await fetch('http://localhost:8000/user/4', {
         method: 'GET',
         credentials: 'include',// on every request we have to send the cookie
         headers: {
@@ -61,7 +61,7 @@ class App extends Component {
         }
       })
 
-      const parsedResponse2 = await registerResponse.json();
+      const parsedResponse2 = await userResponse.json();
 
       this.setState({
         tempUser: parsedResponse2.data
