@@ -27,7 +27,8 @@ class App extends Component {
       image: {},
       loggedIn: false,
       media: null,
-      featuredMedia: {}
+      featuredMedia: {},
+      tempUser: '',
     }
   }
 
@@ -50,7 +51,29 @@ class App extends Component {
     }
     console.log(this.state.featuredMedia, 'featured media');
 
+    try {
+
+      const registerResponse = await fetch('http://localhost:8000/user/1', {
+        method: 'GET',
+        credentials: 'include',// on every request we have to send the cookie
+        headers: {
+          'enctype': 'multipart/form-data'
+        }
+      })
+
+      const parsedResponse2 = await registerResponse.json();
+
+      this.setState({
+        tempUser: parsedResponse2.data
+      })
+
+
+    } catch (err) {
+      console.log(err)
+    }
+
   }
+
 
   logout = async (e) => {
 
@@ -225,7 +248,7 @@ class App extends Component {
         <Route exact path="/mediaf" render={(props) => <FeaturedMedia {...props} media={this.state.featuredMedia}/>} />
         <Route exact path="/medias" render={(props) => <MediaList {...props} medias={this.state.media}/>} />
         <Route exact path="/user/edit" render={(props) => <EditProfile {...props} currentUser={this.state} editProfile={this.editProfile} />} />
-        <Route exact path="/user" render={(props) => <Profile {...props} currentUser={this.state} editProfile={this.editProfile} />} />
+        <Route exact path="/user" render={(props) => <Profile {...props} user={this.state.tempUser} editProfile={this.editProfile} />} />
         <EditMedia />
         </Switch>
         
