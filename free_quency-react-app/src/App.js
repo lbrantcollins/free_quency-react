@@ -12,6 +12,7 @@ import EditMedia from './EditMedia';
 import Header from './Header'; 
 import FeaturedMedia from './FeaturedMedia'; 
 import MediaList from './MediaList'; 
+import Profile from './Profile';
 
   
 class App extends Component {
@@ -224,6 +225,7 @@ class App extends Component {
         <Route exact path="/mediaf" render={(props) => <FeaturedMedia {...props} media={this.state.featuredMedia}/>} />
         <Route exact path="/medias" render={(props) => <MediaList {...props} medias={this.state.media}/>} />
         <Route exact path="/user/edit" render={(props) => <EditProfile {...props} currentUser={this.state} editProfile={this.editProfile} />} />
+        <Route exact path="/user" render={(props) => <Profile {...props} currentUser={this.state} editProfile={this.editProfile} />} />
         <EditMedia />
         </Switch>
         
