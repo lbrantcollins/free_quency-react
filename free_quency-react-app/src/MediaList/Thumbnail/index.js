@@ -16,7 +16,7 @@ const Thumbnail = (props) => {
 			</Link>
 		</Segment>
 
-		)
+	)
 }
 
 export default Thumbnail

@@ -15,7 +15,7 @@ const Header = (props) => {
 						<Menu.Item><Link to='/media/new'><Icon name="plus"/></Link></Menu.Item>
 						<Menu.Item><Link to='/user/edit'>Edit Profile</Link></Menu.Item>
 						<Menu.Item><Link to='/mediaf'>feature media</Link></Menu.Item>
-						<Menu.Item><Link to='/thumb'>thumb media</Link></Menu.Item>
+						<Menu.Item><Link to='/medias'>thumb medias</Link></Menu.Item>
 						<Menu.Item onClick={props.logout}>Logout</Menu.Item>
 					</Menu.Menu> 
 					:
