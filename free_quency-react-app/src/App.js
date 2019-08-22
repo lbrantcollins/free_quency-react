@@ -86,6 +86,8 @@ class Hello extends Component {
         <Switch>
           <Route exact path="/" render={(props) => <Login {...props} logIn={this.logIn} />} />
           <Route exact path="/register" render={(props) => <Register {...props} register={this.register} /> } />
+        {/* How do we switch to displaying the edit profile page? There is a unique id in the url */}
+        <Route exact path="?????" render={(props) => <EditProfile {...props} editProfile={this.editProfile} /> } />
         </Switch>
       </main>
     )
