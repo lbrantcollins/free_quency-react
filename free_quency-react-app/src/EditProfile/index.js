@@ -60,7 +60,7 @@ class EditProfile extends Component {
     if (this.state.image) {
       /////////////////////////
       // encode new image
-      data.append('image', base64_encode(this.state.image));
+      data.append('image', btoa(this.state.image));
     } else {
       data.append('image', this.props.image); // <----- is the else necessary?
     }
@@ -96,11 +96,11 @@ class EditProfile extends Component {
               Password:
               <Form.Input fluid icon='lock' iconPosition='left' type='password' name='password' onChange={this.handleChange}/>
               About me:
-              <Form.TextArea fluid icon='file alternate' iconPosition='left' rows='5' placeholder={this.props.aboutMe} type='textarea' rows="5" name='aboutMe' onChange={this.handleChange}/>
+              <Form.TextArea  icon='file alternate' iconPosition='left' rows='5' placeholder={this.props.aboutMe} type='textarea' name='aboutMe' onChange={this.handleChange}/>
               Profile image:
 
               <div>
-                <img src={this.props.image} alt="existing profile image"/>
+                <img src={this.props.image} alt="existing profile"/>
               </div>
 
               <Form.Input fluid icon='image' iconPosition='left' type="file" name='image' onChange={this.handleChange}/>

@@ -5,6 +5,8 @@ import { Route, Switch } from 'react-router-dom';
 
 import Register from './Register'; 
 import Login from './Login'; 
+import EditProfile from './EditProfile'; 
+
 
   
 class Hello extends Component {
@@ -26,7 +28,7 @@ class Hello extends Component {
     try {
 
       const loginResponse = await fetch('http://localhost:8000/user/login', {
-        method: 'POST',
+        method: 'GET',
         credentials: 'include',
         body: JSON.stringify(loginInfo),
         headers: {
