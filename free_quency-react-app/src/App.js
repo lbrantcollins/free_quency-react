@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import './App.css';
 
 import { Route, Switch } from 'react-router-dom';
+import { Redirect } from 'react-router-dom'
 
 import Register from './Register'; 
 import Login from './Login'; 
 import EditProfile from './EditProfile'; 
 import AddMedia from './AddMedia';
-import EditMedia from './EditMedia'; 
+import EditMedia from './EditMedia';
+import Header from './Header'; 
 
   
 class Hello extends Component {
@@ -51,9 +53,10 @@ class Hello extends Component {
 
       }
 
+
       console.log(this.state, 'state is login');
 
-
+      
       return parsedResponse
 
     } catch (err) {
@@ -127,15 +130,15 @@ class Hello extends Component {
   render () {
     // Make sure to return some UI
     return (
-      
-
+    
       <main>
+        <Header loggedIn={this.state.loggedIn}/>
         <Switch>
-          <Route exact path="/" render={(props) => <Login {...props} logIn={this.logIn} />} />
+          <Route exact path="/login" render={(props) => <Login {...props} logIn={this.logIn} />} />
           <Route exact path="/register" render={(props) => <Register {...props} register={this.register} /> } />
+          <Route exact path="/media/new" render={(props) => <AddMedia {...props} addMedia={this.addMedia}/>} />
         {/* How do we switch to displaying the edit profile page? There is a unique id in the url */}
         <EditProfile editProfile={this.editProfile} />
-        <AddMedia addMedia={this.addMedia}/>
         <EditMedia />
         </Switch>
       </main>
