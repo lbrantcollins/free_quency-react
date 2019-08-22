@@ -49,6 +49,24 @@ class App extends Component {
 
   }
 
+  logout = async (e) => {
+
+    console.log('LOGOUT');
+
+    const logoutResponse = await fetch('http://localhost:8000/user/logout')
+
+    const parsedResponse = await logoutResponse.json()
+
+    this.setState({
+      username: '',
+      email: '',
+      about_me: '',
+      image: {},
+      loggedIn: false
+    })
+
+  }
+
 
   logIn = async (loginInfo) => {
     try {
@@ -154,7 +172,7 @@ class App extends Component {
     return (
     
       <main>
-        <Header loggedIn={this.state.loggedIn}/>
+        <Header loggedIn={this.state.loggedIn} logout={this.logout}/>
         <Switch>
           <Route exact path="/login" render={(props) => <Login {...props} logIn={this.logIn} />} />
           <Route exact path="/register" render={(props) => <Register {...props} register={this.register} /> } />
