@@ -78,8 +78,8 @@ class Hello extends Component {
 
       console.log(parsedResponse)
 
-      if (parsedResponse.status.code === 200) {
-        console.log('logged in if');
+      if (parsedResponse.status.code === 201) {
+        console.log('registered and logged in if');
         this.setState({
           ...parsedResponse.data,
           loggedIn: true

@@ -30,7 +30,7 @@ class Login extends Component {
       console.log(pair[0]  ,', ', pair[1])
     }
 
-    const login = this.props.logIn(data);
+    const loginResponse = this.props.logIn(data);
 
     // login.then((data) => {
     //   if(data.status.message === 'Success'){

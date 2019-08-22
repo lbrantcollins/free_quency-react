@@ -11,15 +11,25 @@ class EditProfile extends Component {
       password: '',
       email: '',
       about: '',
-      image: {}
+      image: {},
+      imageChanged: false
     }
   }
 
-  
+  componentDidMount() {
+  console.log('inside component mount');
+    this.setState({
+      ...this.props.currentUser
+    }) 
+    console.log(this.state, 'state in editProfile');
+  }
 
   handleChange = (e) => {
     if(e.target.name !== 'image'){
-      this.setState({[e.target.name]: e.target.value});
+      this.setState({
+        [e.target.name]: e.target.value,
+        imageChanged: true,
+      });
     } else {
       // file upload
       console.log(e.target.files[0])
@@ -32,42 +42,22 @@ class EditProfile extends Component {
 
     const data = new FormData();
 
-    // If no change made to a field, want to keep the original information
-    if (this.state.username) {
-      data.append('username', this.state.username);
-    } else {
-      data.append('username', this.props.currentUser.username); // <----- is the else necessary?
-    }
-    if (this.state.email) {
-      data.append('email', this.state.email);
-    } else {
-      data.append('email', this.props.currentUser.email); // <----- is the else necessary?
-    }
-    if (this.state.aboutMe) {
-      data.append('aboutMe', this.state.aboutMe);
-    } else {
-      data.append('aboutMe', this.props.currentUser.aboutMe); // <----- is the else necessary?
-    }
+    data.append('username', this.state.username);
+    data.append('email', this.state.email);
+    data.append('aboutMe', this.state.aboutMe);
 
-    if (this.state.password) {
-      data.append('password', this.state.password);
-      /////////////////////////
-      // Would need to re-hash password on the server
-      // How does this effect the current session cookies?  if at all?
-      /////////////////////////
-    } else {
-      // ?????
-    }
+    /////////////////////////
+    // Would need to re-hash password on the server?
+    // How can we tell if password has changed?
+    // How does this effect the current session cookies?  if at all?
+    /////////////////////////
+    data.append('password', this.state.password);
 
-    if (this.state.image) {
+    if (this.state.imageChanged) {
       /////////////////////////
-      // encode new image
-      data.append('image', btoa(this.state.image));
-    } else {
-      data.append('image', this.props.currentUser.image); // <----- is the else necessary?
+      // need to encode new image
+      data.append('file', this.state.image);
     }
-
-    data.append('file', this.state.image);
 
     console.log(data.entries(), ' this is edit profile data')
     for (let pair of data.entries()){
@@ -76,9 +66,8 @@ class EditProfile extends Component {
 
     const updateCall = this.props.editProfile(data);
 
-    console.log(this.props.currentUser.image);
-
   }
+
   render(){
     return (
       <Grid textAlign='center' verticalAlign='middle' style={{ height: '100vh'}}>
@@ -89,13 +78,13 @@ class EditProfile extends Component {
           <Form onSubmit={this.handleSubmit}>
               <Segment stacked textAlign='left'>
               Username:
-              <Form.Input fluid icon='user' iconPosition='left' value={this.props.currentUser.username}  placeholder={this.props.currentUser.username} type='text' name='username' onChange={this.handleChange}/>
+              <Form.Input fluid icon='user' iconPosition='left' value={this.state.username}  placeholder='username' type='text' name='username' onChange={this.handleChange}/>
               Email:
-              <Form.Input fluid icon='mail' iconPosition='left' value={this.props.currentUser.username} placeholder={this.props.currentUser.email} type='text' name='email' onChange={this.handleChange}/>
+              <Form.Input fluid icon='mail' iconPosition='left' value={this.state.email} type='text' name='email' onChange={this.handleChange}/>
               Password:
               <Form.Input fluid icon='lock' iconPosition='left' type='password' name='password' onChange={this.handleChange}/>
               About me:
-              <Form.TextArea  icon='file alternate' iconPosition='left' rows='5' value={this.props.currentUser.username} placeholder={this.props.currentUser.aboutMe} type='textarea' name='aboutMe' onChange={this.handleChange}/>
+              <Form.TextArea  icon='file alternate' iconPosition='left' rows='5' value={this.state.aboutMe} type='textarea' name='aboutMe' onChange={this.handleChange}/>
               Profile image:
 
               <div>
