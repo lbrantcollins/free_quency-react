@@ -2,15 +2,18 @@ import React, { Component } from 'react';
 import './App.css';
 
 import { Route, Switch } from 'react-router-dom';
+import { Redirect } from 'react-router-dom'
 
 import Register from './Register'; 
 import Login from './Login'; 
 import EditProfile from './EditProfile'; 
 import AddMedia from './AddMedia';
-import EditMedia from './EditMedia'; 
+import EditMedia from './EditMedia';
+import Header from './Header'; 
+import FeaturedMedia from './FeaturedMedia'; 
 
   
-class Hello extends Component {
+class App extends Component {
   constructor() {
     super();
 
@@ -19,8 +22,28 @@ class Hello extends Component {
       email: '',
       about_me: '',
       image: {},
-      loggedIn: false
+      loggedIn: false,
+      featuredMedia: {}
     }
+  }
+
+  componentDidMount = async () => {
+
+    const allMediaResponse = await fetch('http://localhost:8000/media/')
+
+    const parsedResponse = await allMediaResponse.json();
+
+    console.log(parsedResponse, 'parsedResponse, login');
+
+    if (parsedResponse.status.code === 200) {
+      console.log('logged in if');
+      this.setState({
+        featuredMedia: parsedResponse.data[0]
+      })
+
+    }
+    console.log(this.state.featuredMedia);
+
   }
 
 
@@ -51,9 +74,11 @@ class Hello extends Component {
 
       }
 
-      console.log(this.state, 'state in login');
+      this.redirectHome()
 
+      console.log(this.state, 'state is login');
 
+      
       return parsedResponse
 
     } catch (err) {
@@ -127,17 +152,20 @@ class Hello extends Component {
   render () {
     // Make sure to return some UI
     return (
-      
-
+    
       <main>
+        <Header loggedIn={this.state.loggedIn}/>
         <Switch>
-          <Route exact path="/" render={(props) => <Login {...props} logIn={this.logIn} />} />
+          <Route exact path="/login" render={(props) => <Login {...props} logIn={this.logIn} />} />
           <Route exact path="/register" render={(props) => <Register {...props} register={this.register} /> } />
-        </Switch>
           {/* How do we switch to displaying the edit profile page? There is a unique id in the url */}
-        <EditProfile currentUser={this.state} editProfile={this.editProfile} />
-          <EditMedia />
-          <AddMedia addMedia={this.addMedia}/>
+          <Route exact path="/media/new" render={(props) => <AddMedia {...props} addMedia={this.addMedia}/>} />
+        {/* How do we switch to displaying the edit profile page? There is a unique id in the url */}
+        <Route exact path="/mediaf" render={(props) => <FeaturedMedia {...props} media={this.state.featuredMedia}/>} />
+        <Route exact path="/user/edit" render={(props) => <EditProfile {...props} currentUser={this.state} editProfile={this.editProfile} />} />
+        <EditMedia />
+        </Switch>
+        
       </main>
 
     )
@@ -146,4 +174,4 @@ class Hello extends Component {
 }
 
 
-export default Hello;
+export default App;
