@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 // import './App.css';
 import Register from './Register'; 
-import AddMedia from './AddMedia'; 
+import AddMedia from './AddMedia';
+import EditMedia from './EditMedia'; 
   
 class Hello extends Component {
   constructor() {
@@ -79,6 +80,7 @@ class Hello extends Component {
       
       <Register register={this.register}/>
       <AddMedia addMedia={this.addMedia}/>
+      <EditMedia />
 
       </div>
     )
