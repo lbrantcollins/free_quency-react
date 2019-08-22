@@ -16,11 +16,10 @@ class Hello extends Component {
 
     this.state = {
       username: '',
-      password: '',
       email: '',
-      about: '',
+      about_me: '',
       image: {},
-      loading: true
+      loggedIn: false
     }
   }
 
@@ -28,23 +27,32 @@ class Hello extends Component {
   logIn = async (loginInfo) => {
     try {
 
+      console.log("LOGIN");
+
       const loginResponse = await fetch('http://localhost:8000/user/login', {
-        method: 'GET',
+        method: 'POST',
         credentials: 'include',
-        body: JSON.stringify(loginInfo),
+        body: loginInfo,
         headers: {
-          'Content-Type': 'application/json'
+          'enctype': 'multipart/form-data'
         }
       })
 
       const parsedResponse = await loginResponse.json();
 
-      this.setState(() => {
-        return {
+      console.log(parsedResponse, 'parsedResponse, login');
+
+      if (parsedResponse.status.code === 200) {
+        console.log('logged in if');
+        this.setState({
           ...parsedResponse.data,
-          loading: false
-        }
-      })
+          loggedIn: true
+        })
+
+      }
+
+      console.log(this.state, 'state is login');
+
 
       return parsedResponse
 
@@ -70,10 +78,16 @@ class Hello extends Component {
 
       console.log(parsedResponse)
 
-      this.setState({
-        ...parsedResponse.data,
-        loading: false
-      })
+      if (parsedResponse.status.code === 200) {
+        console.log('logged in if');
+        this.setState({
+          ...parsedResponse.data,
+          loggedIn: true
+        })
+
+      }
+
+      console.log(this.state, 'STATE IN register');
 
       return parsedResponse;
 

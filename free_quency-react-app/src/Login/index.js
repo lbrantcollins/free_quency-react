@@ -13,6 +13,7 @@ class Login extends Component {
   }
 
   handleChange = (e) => {
+    console.log(this.state)
     this.setState({[e.target.name]: e.target.value}); 
   }
 
@@ -22,13 +23,14 @@ class Login extends Component {
     const data = new FormData();
     data.append('username', this.state.username);
     data.append('password', this.state.password);
+    console.log(data, 'data in login Component');
 
     console.log(data.entries(), ' this is login data')
     for (let pair of data.entries()){
       console.log(pair[0]  ,', ', pair[1])
     }
 
-    const login = this.props.logIn(this.state);
+    const login = this.props.logIn(data);
 
     // login.then((data) => {
     //   if(data.status.message === 'Success'){

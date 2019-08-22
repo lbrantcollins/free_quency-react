@@ -96,7 +96,7 @@ class Register extends Component {
               Password:
               <Form.Input fluid icon='lock' iconPosition='left' type='password' name='password' onChange={this.handleChange}/>
               About me:
-              <Form.TextArea icon='file alternate' iconPosition='left' rows='5' type='textarea' name='aboutMe' onChange={this.handleChange}/>
+              <Form.TextArea icon='file alternate' iconPosition='left' rows='5' type='textarea' name='about' onChange={this.handleChange}/>
               Profile image:
               <Form.Input fluid icon='image' iconPosition='left' type="file" name='image' onChange={this.handleChange}/>
               <Button fluid size='large' type='sumbit'>Register</Button>
