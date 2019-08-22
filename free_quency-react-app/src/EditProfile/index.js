@@ -15,6 +15,8 @@ class EditProfile extends Component {
     }
   }
 
+  
+
   handleChange = (e) => {
     if(e.target.name !== 'image'){
       this.setState({[e.target.name]: e.target.value});
@@ -34,17 +36,17 @@ class EditProfile extends Component {
     if (this.state.username) {
       data.append('username', this.state.username);
     } else {
-      data.append('username', this.props.username); // <----- is the else necessary?
+      data.append('username', this.props.currentUser.username); // <----- is the else necessary?
     }
     if (this.state.email) {
       data.append('email', this.state.email);
     } else {
-      data.append('email', this.props.email); // <----- is the else necessary?
+      data.append('email', this.props.currentUser.email); // <----- is the else necessary?
     }
     if (this.state.aboutMe) {
       data.append('aboutMe', this.state.aboutMe);
     } else {
-      data.append('aboutMe', this.props.aboutMe); // <----- is the else necessary?
+      data.append('aboutMe', this.props.currentUser.aboutMe); // <----- is the else necessary?
     }
 
     if (this.state.password) {
@@ -62,22 +64,19 @@ class EditProfile extends Component {
       // encode new image
       data.append('image', btoa(this.state.image));
     } else {
-      data.append('image', this.props.image); // <----- is the else necessary?
+      data.append('image', this.props.currentUser.image); // <----- is the else necessary?
     }
 
     data.append('file', this.state.image);
 
-    /////////////////////////////////////////
-    // CAUTION: The above code is not quite what we need.
-    // If no change made to a field, want to keep the original information
-    ////////////////////////////////////////
-
-    console.log(data.entries(), ' this is registration data')
+    console.log(data.entries(), ' this is edit profile data')
     for (let pair of data.entries()){
       console.log(pair[0]  ,', ', pair[1])
     }
 
-    const updateCall = this.props.updateProfile(data);
+    const updateCall = this.props.editProfile(data);
+
+    console.log(this.props.currentUser.image);
 
   }
   render(){
@@ -85,22 +84,22 @@ class EditProfile extends Component {
       <Grid textAlign='center' verticalAlign='middle' style={{ height: '100vh'}}>
         <Grid.Column style={{maxWidth: 450}}>
           <Header as='h2' textAlign='center'>
-            Register
+            Edit Profile
           </Header>
           <Form onSubmit={this.handleSubmit}>
               <Segment stacked textAlign='left'>
               Username:
-              <Form.Input fluid icon='user' iconPosition='left' placeholder={this.props.username} type='text' name='username' onChange={this.handleChange}/>
+              <Form.Input fluid icon='user' iconPosition='left' value={this.props.currentUser.username}  placeholder={this.props.currentUser.username} type='text' name='username' onChange={this.handleChange}/>
               Email:
-              <Form.Input fluid icon='mail' iconPosition='left' placeholder={this.props.email} type='text' name='email' onChange={this.handleChange}/>
+              <Form.Input fluid icon='mail' iconPosition='left' value={this.props.currentUser.username} placeholder={this.props.currentUser.email} type='text' name='email' onChange={this.handleChange}/>
               Password:
               <Form.Input fluid icon='lock' iconPosition='left' type='password' name='password' onChange={this.handleChange}/>
               About me:
-              <Form.TextArea  icon='file alternate' iconPosition='left' rows='5' placeholder={this.props.aboutMe} type='textarea' name='aboutMe' onChange={this.handleChange}/>
+              <Form.TextArea  icon='file alternate' iconPosition='left' rows='5' value={this.props.currentUser.username} placeholder={this.props.currentUser.aboutMe} type='textarea' name='aboutMe' onChange={this.handleChange}/>
               Profile image:
 
               <div>
-                <img src={this.props.image} alt="existing profile"/>
+                <img src={this.props.currentUser.image} alt="existing profile"/>
               </div>
 
               <Form.Input fluid icon='image' iconPosition='left' type="file" name='image' onChange={this.handleChange}/>

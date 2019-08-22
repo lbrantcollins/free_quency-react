@@ -51,7 +51,7 @@ class Hello extends Component {
 
       }
 
-      console.log(this.state, 'state is login');
+      console.log(this.state, 'state in login');
 
 
       return parsedResponse
@@ -133,11 +133,11 @@ class Hello extends Component {
         <Switch>
           <Route exact path="/" render={(props) => <Login {...props} logIn={this.logIn} />} />
           <Route exact path="/register" render={(props) => <Register {...props} register={this.register} /> } />
-        {/* How do we switch to displaying the edit profile page? There is a unique id in the url */}
-        <EditProfile editProfile={this.editProfile} />
-        <AddMedia addMedia={this.addMedia}/>
-        <EditMedia />
         </Switch>
+          {/* How do we switch to displaying the edit profile page? There is a unique id in the url */}
+        <EditProfile currentUser={this.state} editProfile={this.editProfile} />
+          <EditMedia />
+          <AddMedia addMedia={this.addMedia}/>
       </main>
 
     )

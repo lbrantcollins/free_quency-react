@@ -105,9 +105,8 @@ class Register extends Component {
                 Already a member? <Link to='/'>Log in</Link>
               </Message>
              
-            </Segment>
+              </Segment>
           </Form>
-          <Button onClick={this.handleClick}>button</Button>
         </Grid.Column>
       </Grid>
       )
