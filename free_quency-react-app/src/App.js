@@ -23,11 +23,13 @@ class App extends Component {
       about_me: '',
       image: {},
       loggedIn: false,
+      media: null,
       featuredMedia: {}
     }
   }
 
   componentDidMount = async () => {
+    console.log('mounted component');
 
     const allMediaResponse = await fetch('http://localhost:8000/media/')
 
@@ -38,11 +40,12 @@ class App extends Component {
     if (parsedResponse.status.code === 200) {
       console.log('logged in if');
       this.setState({
+        media: parsedResponse.data,
         featuredMedia: parsedResponse.data[0]
       })
 
     }
-    console.log(this.state.featuredMedia);
+    console.log(this.state.featuredMedia, 'featured media');
 
   }
 
@@ -74,11 +77,8 @@ class App extends Component {
 
       }
 
-      this.redirectHome()
-
       console.log(this.state, 'state is login');
 
-      
       return parsedResponse
 
     } catch (err) {
