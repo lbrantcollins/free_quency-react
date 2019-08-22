@@ -30,15 +30,15 @@ class Login extends Component {
 
     const login = this.props.logIn(this.state);
 
-    login.then((data) => {
-      if(data.status.message === 'Success'){
-        this.props.history.push('/profile')
-      } else {
-        console.log(data, this.props)
-      }
-    }).catch((err) => {
-      console.log(err)
-    })
+    // login.then((data) => {
+    //   if(data.status.message === 'Success'){
+    //     this.props.history.push('/profile')
+    //   } else {
+    //     console.log(data, this.props)
+    //   }
+    // }).catch((err) => {
+    //   console.log(err)
+    // })
 
 
   }
