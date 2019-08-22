@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
+
+import { Route, Switch } from 'react-router-dom';
+
 import Register from './Register'; 
 import Login from './Login'; 
 
@@ -17,6 +20,36 @@ class Hello extends Component {
       loading: true
     }
   }
+
+
+  logIn = async (loginInfo) => {
+    try {
+
+      const loginResponse = await fetch('http://localhost:8000/user/login', {
+        method: 'POST',
+        credentials: 'include',
+        body: JSON.stringify(loginInfo),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+
+      const parsedResponse = await loginResponse.json();
+
+      this.setState(() => {
+        return {
+          ...parsedResponse.data,
+          loading: false
+        }
+      })
+
+      return parsedResponse
+
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
 
   register = async (data) => {
      try {
@@ -38,6 +71,7 @@ class Hello extends Component {
         ...parsedResponse.data,
         loading: false
       })
+
       return parsedResponse;
 
     } catch (err) {
@@ -45,17 +79,17 @@ class Hello extends Component {
     }
   }
 
-  // what should the component render
   render () {
-    // Make sure to return some UI
-    return (
-      <div>
-      
-      <Register register={this.register}/>
-      <Login />
 
-      </div>
+    return (
+      <main>
+        <Switch>
+          <Route exact path="/" render={(props) => <Login {...props} logIn={this.logIn} />} />
+          <Route exact path="/register" render={(props) => <Register {...props} register={this.register} /> } />
+        </Switch>
+      </main>
     )
+
   }
 }
 

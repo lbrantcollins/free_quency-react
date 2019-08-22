@@ -11,15 +11,11 @@ class Login extends Component {
       password: '',
     }
   }
+
   handleChange = (e) => {
-    if(e.target.name !== 'image'){
-      this.setState({[e.target.name]: e.target.value});
-    } else {
-      // file upload
-      console.log(e.target.files[0])
-      this.setState({image: e.target.files[0]});
-    }
+    this.setState({[e.target.name]: e.target.value}); 
   }
+
   handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -27,21 +23,24 @@ class Login extends Component {
     data.append('username', this.state.username);
     data.append('password', this.state.password);
 
-    console.log(data.entries(), ' this is data')
+    console.log(data.entries(), ' this is login data')
     for (let pair of data.entries()){
       console.log(pair[0]  ,', ', pair[1])
     }
 
-    // const registerCall = this.props.register(data);
+    const login = this.props.logIn(this.state);
 
-    // registerCall.then((data) => {
-    //   console.log(data)
-    //     if(data.status.message === "Success"){
-    //       this.props.history.push('/profile')
-    //     } else {
-    //       console.log(data, ' this should have an error message? How could you display that on the screen')
-    //     }
-    // })
+    login.then((data) => {
+      if(data.status.message === 'Success'){
+        this.props.history.push('/profile')
+      } else {
+        console.log(data, this.props)
+      }
+    }).catch((err) => {
+      console.log(err)
+    })
+
+
   }
   render(){
     return (

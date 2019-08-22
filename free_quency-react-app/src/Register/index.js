@@ -33,7 +33,7 @@ class Register extends Component {
     data.append('about', this.state.about);
     data.append('email', this.state.email);
 
-    console.log(data.entries(), ' this is data')
+    console.log(data.entries(), ' this is registration data')
     for (let pair of data.entries()){
       console.log(pair[0]  ,', ', pair[1])
     }
@@ -71,7 +71,7 @@ class Register extends Component {
               <Button fluid size='large' type='sumbit'>Register</Button>
 
               <Message>
-                Already a member? <Link to='/Login'>Log in</Link>
+                Already a member? <Link to='/'>Log in</Link>
               </Message>
              
             </Segment>
