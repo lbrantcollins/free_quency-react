@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import Register from './Register'; 
+import Login from './Login'; 
+
   
 class Hello extends Component {
   constructor() {
@@ -50,6 +52,7 @@ class Hello extends Component {
       <div>
       
       <Register register={this.register}/>
+      <Login />
 
       </div>
     )
