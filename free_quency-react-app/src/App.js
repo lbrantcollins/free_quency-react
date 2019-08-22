@@ -161,7 +161,7 @@ class App extends Component {
           <Route exact path="/media/new" render={(props) => <AddMedia {...props} addMedia={this.addMedia}/>} />
         {/* How do we switch to displaying the edit profile page? There is a unique id in the url */}
         <Route exact path="/mediaf" render={(props) => <FeaturedMedia {...props} media={this.state.featuredMedia}/>} />
-        <EditProfile editProfile={this.editProfile} />
+        <Route exact path="/user/edit" render={(props) => <EditProfile {...props} currentUser={this.state} editProfile={this.editProfile} />} />
         <EditMedia />
         </Switch>
         
