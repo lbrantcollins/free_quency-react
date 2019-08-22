@@ -10,7 +10,7 @@ class EditProfile extends Component {
       username: '',
       password: '',
       email: '',
-      about: '',
+      about_me: '',
       image: {},
       imageChanged: false
     }
@@ -84,7 +84,7 @@ class EditProfile extends Component {
               Password:
               <Form.Input fluid icon='lock' iconPosition='left' type='password' name='password' onChange={this.handleChange}/>
               About me:
-              <Form.TextArea  icon='file alternate' iconPosition='left' rows='5' value={this.state.aboutMe} type='textarea' name='aboutMe' onChange={this.handleChange}/>
+              <Form.TextArea  icon='file alternate' iconPosition='left' rows='5' value={this.state.about_me} type='textarea' name='about_me' onChange={this.handleChange}/>
               Profile image:
 
               <div>
