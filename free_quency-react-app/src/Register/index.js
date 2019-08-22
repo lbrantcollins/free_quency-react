@@ -23,6 +23,37 @@ class Register extends Component {
       this.setState({image: e.target.files[0]});
     }
   }
+  handleClick = async () => {
+
+
+    try {
+
+      const registerResponse = await fetch('http://localhost:8000/user/1', {
+        method: 'GET',
+        credentials: 'include',// on every request we have to send the cookie
+        headers: {
+          'enctype': 'multipart/form-data'
+        }
+      })
+
+      const parsedResponse = await registerResponse.json();
+
+      console.log(parsedResponse)
+
+      this.setState({
+        ...parsedResponse.data,
+        loading: false
+      })
+
+      console.log(parsedResponse);
+      return parsedResponse;
+
+    } catch (err) {
+      console.log(err)
+    }
+
+
+  }
   handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -30,7 +61,7 @@ class Register extends Component {
     data.append('file', this.state.image);
     data.append('username', this.state.username);
     data.append('password', this.state.password);
-    data.append('about', this.state.about);
+    data.append('about_me', this.state.about);
     data.append('email', this.state.email);
 
     console.log(data.entries(), ' this is registration data')
@@ -76,6 +107,7 @@ class Register extends Component {
              
             </Segment>
           </Form>
+          <Button onClick={this.handleClick}>button</Button>
         </Grid.Column>
       </Grid>
       )

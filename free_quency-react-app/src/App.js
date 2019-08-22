@@ -6,7 +6,8 @@ import { Route, Switch } from 'react-router-dom';
 import Register from './Register'; 
 import Login from './Login'; 
 import EditProfile from './EditProfile'; 
-
+import AddMedia from './AddMedia';
+import EditMedia from './EditMedia'; 
 
   
 class Hello extends Component {
@@ -81,21 +82,54 @@ class Hello extends Component {
     }
   }
 
-  render () {
+  addMedia = async (data) => {
 
+    try {
+      
+      const addMediaResponse = await fetch('http://localhost:8000/media/', {
+        method: 'POST',
+        credentials: 'include',// on every request we have to send the cookie
+        body: data,
+        headers: {
+          'enctype': 'multipart/form-data'
+        }
+      })
+
+      const parsedResponse = await addMediaResponse.json();
+
+      console.log(parsedResponse);
+
+      return parsedResponse
+
+
+    } catch(err){
+      console.log(err);
+    }
+
+
+  }
+
+  // what should the component render
+  render () {
+    // Make sure to return some UI
     return (
+      
+
       <main>
         <Switch>
           <Route exact path="/" render={(props) => <Login {...props} logIn={this.logIn} />} />
           <Route exact path="/register" render={(props) => <Register {...props} register={this.register} /> } />
         {/* How do we switch to displaying the edit profile page? There is a unique id in the url */}
-        <Route exact path="?????" render={(props) => <EditProfile {...props} editProfile={this.editProfile} /> } />
+        <EditProfile editProfile={this.editProfile} />
+        <AddMedia addMedia={this.addMedia}/>
+        <EditMedia />
         </Switch>
       </main>
+
     )
 
   }
 }
 
 
-export default Hello
+export default Hello;
