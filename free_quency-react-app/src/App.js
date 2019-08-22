@@ -11,6 +11,7 @@ import AddMedia from './AddMedia';
 import EditMedia from './EditMedia';
 import Header from './Header'; 
 import FeaturedMedia from './FeaturedMedia'; 
+import Thumbnail from './MediaList/Thumbnail'; 
 
   
 class App extends Component {
@@ -42,7 +43,7 @@ class App extends Component {
       console.log('logged in if');
       this.setState({
         media: parsedResponse.data,
-        featuredMedia: parsedResponse.data[0]
+        featuredMedia: parsedResponse.data[4]
       })
 
     }
@@ -221,6 +222,7 @@ class App extends Component {
           <Route exact path="/media/new" render={(props) => <AddMedia {...props} addMedia={this.addMedia}/>} />
         {/* How do we switch to displaying the edit profile page? There is a unique id in the url */}
         <Route exact path="/mediaf" render={(props) => <FeaturedMedia {...props} media={this.state.featuredMedia}/>} />
+        <Route exact path="/thumb" render={(props) => <Thumbnail {...props} media={this.state.featuredMedia}/>} />
         <Route exact path="/user/edit" render={(props) => <EditProfile {...props} currentUser={this.state} editProfile={this.editProfile} />} />
         <EditMedia />
         </Switch>
