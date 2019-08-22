@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 // import './App.css';
 import Register from './Register'; 
+import AddMedia from './AddMedia'; 
   
 class Hello extends Component {
   constructor() {
@@ -43,6 +44,33 @@ class Hello extends Component {
     }
   }
 
+  addMedia = async (data) => {
+
+    try {
+      
+      const addMediaResponse = await fetch('http://localhost:8000/media/', {
+        method: 'POST',
+        credentials: 'include',// on every request we have to send the cookie
+        body: data,
+        headers: {
+          'enctype': 'multipart/form-data'
+        }
+      })
+
+      const parsedResponse = await addMediaResponse.json();
+
+      console.log(parsedResponse);
+
+      return parsedResponse
+
+
+    } catch(err){
+      console.log(err);
+    }
+
+
+  }
+
   // what should the component render
   render () {
     // Make sure to return some UI
@@ -50,6 +78,7 @@ class Hello extends Component {
       <div>
       
       <Register register={this.register}/>
+      <AddMedia addMedia={this.addMedia}/>
 
       </div>
     )
