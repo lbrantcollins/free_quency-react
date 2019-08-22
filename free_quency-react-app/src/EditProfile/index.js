@@ -11,13 +11,13 @@ class EditProfile extends Component {
       password: '',
       email: '',
       about_me: '',
-      image: {},
-      imageChanged: false
+      image: '',
+      newImage: {},
     }
   }
 
   componentDidMount() {
-  console.log('inside component mount');
+    console.log('inside component mount');
     this.setState({
       ...this.props.currentUser
     }) 
@@ -28,13 +28,17 @@ class EditProfile extends Component {
     if(e.target.name !== 'image'){
       this.setState({
         [e.target.name]: e.target.value,
-        imageChanged: true,
+        
       });
     } else {
       // file upload
       console.log(e.target.files[0])
-      this.setState({image: e.target.files[0]});
+      this.setState({
+        newImage: e.target.files[0],
+      });
+      
     }
+    console.log(this.state, "state at end of handleChange in editProfile");
   }
 
   handleSubmit = async (e) => {
@@ -44,27 +48,17 @@ class EditProfile extends Component {
 
     data.append('username', this.state.username);
     data.append('email', this.state.email);
-    data.append('aboutMe', this.state.aboutMe);
-
-    /////////////////////////
-    // Would need to re-hash password on the server?
-    // How can we tell if password has changed?
-    // How does this effect the current session cookies?  if at all?
-    /////////////////////////
+    data.append('about_me', this.state.about_me);
     data.append('password', this.state.password);
 
-    if (this.state.imageChanged) {
-      /////////////////////////
-      // need to encode new image
-      data.append('file', this.state.image);
-    }
+    data.append('file', this.state.newImage);
 
     console.log(data.entries(), ' this is edit profile data')
     for (let pair of data.entries()){
       console.log(pair[0]  ,', ', pair[1])
     }
 
-    const updateCall = this.props.editProfile(data);
+    this.props.editProfile(data);
 
   }
 

@@ -18,6 +18,7 @@ class App extends Component {
     super();
 
     this.state = {
+      id: null,
       username: '',
       email: '',
       about_me: '',
@@ -51,6 +52,12 @@ class App extends Component {
     try {
 
       console.log("LOGIN");
+
+      console.log("-----------DATA IN LOGIN IN App.js----------------");
+    for (let pair of loginInfo.entries()){
+      console.log(pair[0]  ,', ', pair[1])
+    }
+    console.log("--------------------------------------------------------");
 
       const loginResponse = await fetch('http://localhost:8000/user/login', {
         method: 'POST',
@@ -88,6 +95,7 @@ class App extends Component {
 
 
   register = async (data) => {
+
      try {
 
       const registerResponse = await fetch('http://localhost:8000/user/register', {
@@ -137,6 +145,39 @@ class App extends Component {
       const parsedResponse = await addMediaResponse.json();
 
       console.log(parsedResponse);
+
+      return parsedResponse
+
+
+    } catch(err){
+      console.log(err);
+    }
+
+
+  }
+
+  editProfile = async (data) => {
+
+    console.log("-----------DATA IN editProfile IN App.js----------------");
+    for (let pair of data.entries()){
+      console.log(pair[0]  ,', ', pair[1])
+    }
+    console.log("--------------------------------------------------------");
+
+    try {
+      
+      const updateProfileResponse = await fetch('http://localhost:8000/user/' + this.state.id, {
+        method: 'PUT',
+        credentials: 'include',// on every request we have to send the cookie
+        body: data,
+        headers: {
+          'enctype': 'multipart/form-data'
+        }
+      })
+
+      const parsedResponse = await updateProfileResponse.json();
+
+      console.log(parsedResponse, "parsedResponse in editProfile");
 
       return parsedResponse
 
