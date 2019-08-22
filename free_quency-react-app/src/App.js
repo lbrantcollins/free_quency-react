@@ -10,9 +10,10 @@ import EditProfile from './EditProfile';
 import AddMedia from './AddMedia';
 import EditMedia from './EditMedia';
 import Header from './Header'; 
+import FeaturedMedia from './FeaturedMedia'; 
 
   
-class Hello extends Component {
+class App extends Component {
   constructor() {
     super();
 
@@ -21,8 +22,28 @@ class Hello extends Component {
       email: '',
       about_me: '',
       image: {},
-      loggedIn: false
+      loggedIn: false,
+      featuredMedia: {}
     }
+  }
+
+  componentDidMount = async () => {
+
+    const allMediaResponse = await fetch('http://localhost:8000/media/')
+
+    const parsedResponse = await allMediaResponse.json();
+
+    console.log(parsedResponse, 'parsedResponse, login');
+
+    if (parsedResponse.status.code === 200) {
+      console.log('logged in if');
+      this.setState({
+        featuredMedia: parsedResponse.data[0]
+      })
+
+    }
+    console.log(this.state.featuredMedia);
+
   }
 
 
@@ -53,6 +74,7 @@ class Hello extends Component {
 
       }
 
+      this.redirectHome()
 
       console.log(this.state, 'state is login');
 
@@ -138,9 +160,11 @@ class Hello extends Component {
           <Route exact path="/register" render={(props) => <Register {...props} register={this.register} /> } />
           <Route exact path="/media/new" render={(props) => <AddMedia {...props} addMedia={this.addMedia}/>} />
         {/* How do we switch to displaying the edit profile page? There is a unique id in the url */}
+        <Route exact path="/mediaf" render={(props) => <FeaturedMedia {...props} media={this.state.featuredMedia}/>} />
         <EditProfile editProfile={this.editProfile} />
         <EditMedia />
         </Switch>
+        
       </main>
 
     )
@@ -149,4 +173,4 @@ class Hello extends Component {
 }
 
 
-export default Hello;
+export default App;

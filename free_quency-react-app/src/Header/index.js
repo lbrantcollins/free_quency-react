@@ -6,18 +6,20 @@ const Header = (props) => {
 	return(
 
 			<Menu>
-				<Menu.Item><a href='#'>Browse Media</a></Menu.Item>
+				<Menu.Item><Link to='#'>Browse Media</Link></Menu.Item>
 
 				{ props.loggedIn ? 
 					<Menu.Menu>
-						<Menu.Item><a href='#'>My Media</a></Menu.Item>
-						<Menu.Item><a href='#'>My Favorites</a></Menu.Item>
-						<Menu.Item><a href='/media/new'><Icon name="plus"/></a></Menu.Item>
-					</Menu.Menu> :
-
+						<Menu.Item><Link to='#'>My Media</Link></Menu.Item>
+						<Menu.Item><Link to='#'>My Favorites</Link></Menu.Item>
+						<Menu.Item><Link to='/media/new'><Icon name="plus"/></Link>
+						<Menu.Item><Link to='/mediaf'>My</Link></Menu.Item>
+						</Menu.Item>
+					</Menu.Menu> 
+					:
 					<Menu.Menu>
-						<Menu.Item><a href='/login'>Login</a></Menu.Item>
-						<Menu.Item><a href='/register'>Register</a></Menu.Item>
+						<Menu.Item><Link to='/login'>Login</Link></Menu.Item>
+						<Menu.Item><Link to='/register'>Register</Link></Menu.Item>
 					</Menu.Menu>
 				}
 			</Menu>
