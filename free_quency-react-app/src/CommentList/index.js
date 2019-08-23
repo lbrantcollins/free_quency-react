@@ -23,7 +23,9 @@ const CommentList = (props) => {
 	return(
 
 		<div>
-			{commentList}
+			<Card>
+				{commentList}
+			</Card>
 
 			<AddComment mediaId={props.mediaId} addComment={props.addComment}/>
 		</div>
