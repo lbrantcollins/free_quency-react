@@ -257,15 +257,36 @@ class ShowMedia extends Component {
 							{this.state.user_id ? this.state.user_id.username : null}
 						</Link>
 					</div>
-					<div>Favorites: {this.state.favorites.length}</div>ink>
-					{ this.state.userFavorited == true ? 
-						<Icon onClick={this.handleFavoriteClick} name="star"/> 
-						: 
-						<Icon onClick={this.handleFavoriteClick} name="star outline"/> 
-					}
-					<Link onClick={this.toggleEdit}>Edit</Link>
 
-					{this.state.editActive ? <EditMedia media={this.state} handleEdit={this.handleEdit}/> : null}
+					<div>Favorites: {this.state.favorites.length}</div>
+					{this.props.loggedIn ?
+						<div>
+							{ this.state.userFavorited == true ? 
+								<Icon onClick={this.handleFavoriteClick} name="star"/> 
+								: 
+								<Icon onClick={this.handleFavoriteClick} name="star outline"/> 
+							}
+
+							{ this.state.user_id ? 
+								<div>
+								{	this.props.userId === this.state.user_id.id ?
+									<div>
+										<Link onClick={this.toggleEdit}>Edit</Link>
+										{this.state.editActive ? <EditMedia media={this.state} handleEdit={this.handleEdit}/> : null}
+									</div>
+								:
+								null }
+								</div>
+							:
+
+								null
+
+							}
+
+
+						</div>
+						:
+						null }
 
 					<p>{this.state.description}</p>
 

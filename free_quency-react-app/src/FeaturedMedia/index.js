@@ -201,14 +201,30 @@ class FeaturedMedia extends Component {
 					<a href={this.state.url}><Header as='h2'>{this.state.title}</Header></a>
 					<div>By: <Link to={'/user/' + this.state.user_id.id}>{this.state.user_id.username}</Link></div>
 					<div>Favorites: {this.state.favorites.length} </div>
-					{ this.state.userFavorited == true ? 
-						<Icon onClick={this.handleFavoriteClick} name="star"/> 
-						: 
-						<Icon onClick={this.handleFavoriteClick} name="star outline"/> 
+
+					{ this.props.loggedIn ?
+						<div>
+							{ this.state.userFavorited == true ? 
+								<Icon onClick={this.handleFavoriteClick} name="star"/> 
+								: 
+								<Icon onClick={this.handleFavoriteClick} name="star outline"/> 
+							}
+
+							{	this.userId === this.state.user_id.id ?
+								<div>
+									<Link onClick={this.toggleEdit}>Edit</Link>
+									{this.state.editActive ? <EditMedia media={this.state} handleEdit={this.handleEdit}/> : null}
+								</div>
+								:
+								null
+
+							}
+						</div>
+						:
+						null
+
 					}
 					
-					<Link onClick={this.toggleEdit}>Edit</Link>
-					{this.state.editActive ? <EditMedia media={this.state} handleEdit={this.handleEdit}/> : null}
 
 					<p>{this.state.description}</p>
 

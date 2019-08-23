@@ -50,7 +50,7 @@ class AddMedia extends Component {
               <Form.Input fluid icon='keyboard' iconPosition='left' placeholder='description' type='text' name='description' onChange={this.handleChange}/>
               URL:
               <Form.Input fluid icon='paperclip' iconPosition='left' type='url' name='url' onChange={this.handleChange}/>
-              <Button fluid size='large' type='sumbit'>Register</Button>
+              <Button fluid size='large' type='sumbit'>Add Media</Button>
              
             </Segment>
           </Form>
