@@ -3,6 +3,8 @@ import { Card, Button, Form, Grid, Image, Message, Segment, Menu, Icon } from 's
 import { Link } from 'react-router-dom';
 
 import Comment from './Comment'
+import AddComment from '../AddComment'
+
 
 const CommentList = (props) => {
 
@@ -22,6 +24,8 @@ const CommentList = (props) => {
 
 		<div>
 			{commentList}
+
+			<AddComment mediaId={props.mediaId} addComment={props.addComment}/>
 		</div>
 
 	)

@@ -119,7 +119,7 @@ class ShowMedia extends Component {
 
       console.log(parsedResponse);
 
-      const newList = this.state.comment
+      const newList = this.state.comments
 
       newList.push(parsedResponse.data)
 
@@ -257,17 +257,14 @@ class ShowMedia extends Component {
 							{this.state.user_id ? this.state.user_id.username : null}
 						</Link>
 					</div>
-					<div>Favorites: {this.state.favorites.length}</div>
-<<<<<<< HEAD
-					<Link to="#" onClick={this.toggleEdit}>Edit</Link>
-=======
+					<div>Favorites: {this.state.favorites.length}</div>ink>
 					{ this.state.userFavorited == true ? 
 						<Icon onClick={this.handleFavoriteClick} name="star"/> 
 						: 
 						<Icon onClick={this.handleFavoriteClick} name="star outline"/> 
 					}
 					<Link onClick={this.toggleEdit}>Edit</Link>
->>>>>>> fe58494eb22b2ede7d8c8b173ffea63bd1904008
+
 					{this.state.editActive ? <EditMedia media={this.state} handleEdit={this.handleEdit}/> : null}
 
 					<p>{this.state.description}</p>
