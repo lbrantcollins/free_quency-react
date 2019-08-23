@@ -11,6 +11,7 @@ import Header from './Header';
 import FeaturedMedia from './FeaturedMedia'; 
 import MediaList from './MediaList'; 
 import Profile from './Profile';
+import ShowMedia from './ShowMedia';
 
   
 class App extends Component {
@@ -43,7 +44,7 @@ class App extends Component {
       console.log('logged in if');
       this.setState({
         media: parsedResponse.data,
-        featuredMedia: parsedResponse.data[4]
+        featuredMedia: parsedResponse.data[0]
       })
 
     }
@@ -265,13 +266,20 @@ class App extends Component {
         <Header loggedIn={this.state.loggedIn} logout={this.logout}/>
         <Switch>
           <Route exact path="/login" render={(props) => <Login {...props} logIn={this.logIn} />} />
+
           <Route exact path="/register" render={(props) => <Register {...props} register={this.register} /> } />
           {/* How do we switch to displaying the edit profile page? There is a unique id in the url */}
+
           <Route exact path="/media/new" render={(props) => <AddMedia {...props} addMedia={this.addMedia}/>} />
         {/* How do we switch to displaying the edit profile page? There is a unique id in the url */}
+
         <Route exact path="/mediaf" render={(props) => <FeaturedMedia {...props} media={this.state.featuredMedia} editMediaList={this.editMediaList}/>} />
+
         <Route exact path="/medias" render={(props) => <MediaList {...props} medias={this.state.media}/>} />
+
         <Route exact path="/user/edit" render={(props) => <EditProfile {...props} currentUser={this.state} editProfile={this.editProfile} />} />
+
+        <Route exact path="/media/:id" render={(props) => <ShowMedia {...props}  editMediaList={this.editMediaList} />} />
 
         <Route exact path="/user/:id" render={(props) => <Profile {...props} user={this.state.tempUser} editProfile={this.editProfile} />} />
         </Switch>
