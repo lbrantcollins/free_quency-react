@@ -24,13 +24,18 @@ class FeaturedMedia extends Component {
 	}
 
 
-	componentDidMount(){
-		console.log(this.props.media);
+	async componentDidMount(){
+		console.log(this.props.media, 'MEDIA');
 
-		console.log(this.props.userId);
+		console.log(this.props.userId, 'USERID');
+
+		console.log(this.state.favorites);
+
+		await this.setState({
+			...this.props.media
+		})
 
 		this.setState({
-			...this.props.media,
 			userFavorited: this.state.favorites.some( fav => this.props.userId === fav.user_id.id)
 		})
 
@@ -115,9 +120,10 @@ class FeaturedMedia extends Component {
 
 			    console.log(parsedResponse);
 
+				const newFavList = this.state.favorites.slice()
+
 				this.props.updateFavorite(null, this.state.id, favId)
 
-				const newFavList = this.state.favorites
 
 				newFavList.splice(favIndex, 1)
 
@@ -137,11 +143,11 @@ class FeaturedMedia extends Component {
 	      // else, add favorite from db
 	      	try {
 
-	      		const data = new FormData();
-			    data.append('user_id', this.props.userId);
-			    data.append('media_id', this.state.id);
+	      	const data = new FormData();
+			   data.append('user_id', this.props.userId);
+			   data.append('media_id', this.state.id);
 
-			    const favoriteResponse = await fetch('http://localhost:8000/favorite/', {
+			   const favoriteResponse = await fetch('http://localhost:8000/favorite/', {
 			      method: 'POST',
 			      credentials: 'include',// on every request we have to send the cookie
 			      body: data,
@@ -150,13 +156,14 @@ class FeaturedMedia extends Component {
 			      }
 			   	})
 
-			    const parsedResponse = await favoriteResponse.json();
+			   const parsedResponse = await favoriteResponse.json();
 
-			    console.log(parsedResponse);
+			   console.log(parsedResponse);
+
+				const newFavList = this.state.favorites.slice()
 
 				this.props.updateFavorite(parsedResponse.data, this.state.id, null)
 
-				const newFavList = this.state.favorites
 
 				console.log(newFavList, 'NEW FAV BEFORE CHANGE');
 
@@ -265,7 +272,7 @@ class FeaturedMedia extends Component {
 
 					<p>{this.state.description}</p>
 
-					<CommentList comments={this.state.comments} mediaId={this.state.id} addComment={this.addComment}/>
+					<CommentList makePrettyDate={this.props.makePrettyDate} comments={this.state.comments} mediaId={this.state.id} addComment={this.addComment}/>
 
 				</Container>
 			</Segment>

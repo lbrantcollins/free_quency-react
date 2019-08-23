@@ -12,7 +12,7 @@ class Login extends Component {
     }
   }
 
-  handleChange = (e) => {
+  handleChange = async (e) => {
     console.log(this.state)
     this.setState({[e.target.name]: e.target.value}); 
   }
@@ -30,7 +30,7 @@ class Login extends Component {
       console.log(pair[0]  ,', ', pair[1])
     }
 
-    const loginResponse = this.props.logIn(data);
+    const loginResponse = await this.props.logIn(data);
 
     this.props.history.push('/browse-media')
 

@@ -69,7 +69,7 @@ class Register extends Component {
       console.log(pair[0]  ,', ', pair[1])
     }
 
-    const registerCall = this.props.register(data);
+    const registerCall = await this.props.register(data);
 
     this.props.history.push('/browse-media')
 

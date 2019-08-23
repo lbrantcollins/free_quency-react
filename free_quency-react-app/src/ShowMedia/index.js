@@ -43,13 +43,14 @@ class ShowMedia extends Component {
 
 	      console.log(parsedResponse.data);
 
-	      this.setState({
-	        ...parsedResponse.data
+	      await this.setState({
+	        ...parsedResponse.data,
+	        userFavorited: this.state.favorites.some( fav => this.props.userId === fav.user_id.id)
 	      })
 
 	      this.setState({
-			userFavorited: this.state.favorites.some( fav => this.props.userId === fav.user_id.id)
-		  })
+	        userFavorited: this.state.favorites.some( fav => this.props.userId === fav.user_id.id)
+	      })
 
 	      console.log(this.state.user);
 	    } catch (err) {
@@ -172,9 +173,10 @@ class ShowMedia extends Component {
 
 			    console.log(parsedResponse);
 
+				const newFavList = this.state.favorites.slice()
+
 				this.props.updateFavorite(null, this.state.id, favId)
 
-				const newFavList = this.state.favorites
 
 				newFavList.splice(favIndex, 1)
 
@@ -211,9 +213,10 @@ class ShowMedia extends Component {
 
 			    console.log(parsedResponse);
 
+				const newFavList = this.state.favorites.slice()
+
 				this.props.updateFavorite(parsedResponse.data, this.state.id, null)
 
-				const newFavList = this.state.favorites
 
 				console.log(newFavList, 'NEW FAV BEFORE CHANGE');
 

@@ -285,6 +285,8 @@ class App extends Component {
 
   updateFavorite = (newFav, mediaId, favId) => {
 
+    console.log('UPDATE FAVORITE');
+
     console.log(newFav, favId);
 
     const newMedia = this.state.media
@@ -331,11 +333,11 @@ class App extends Component {
         <Switch>
           <Route exact path="/login" render={(props) => <Login {...props} logIn={this.logIn} />} />
 
-          <Route exact path="/browse-media" render={(props) => <BrowseMedia {...props} medias={this.state.media} loggedIn={this.state.loggedIn} updateFavorite={this.updateFavorite} userId={this.state.id} editMediaList={this.editMediaList}/>} />
+          <Route exact path="/browse-media" render={(props) => <BrowseMedia {...props} medias={this.state.media} loggedIn={this.state.loggedIn} updateFavorite={this.updateFavorite} userId={this.state.id} editMediaList={this.editMediaList} makePrettyDate={this.makePrettyDate} />}  />
 
-          <Route exact path="/my-media" render={(props) => <MyMedia {...props} medias={this.state.media} loggedIn={this.state.loggedIn} updateFavorite={this.updateFavorite} userId={this.state.id} editMediaList={this.editMediaList}/>} />
+          <Route exact path="/my-media" render={(props) => <MyMedia {...props} medias={this.state.media} loggedIn={this.state.loggedIn} updateFavorite={this.updateFavorite} userId={this.state.id} editMediaList={this.editMediaList} makePrettyDate={this.makePrettyDate} />} />
 
-          <Route exact path="/my-favorites" render={(props) => <MyFavorites {...props} medias={this.state.media} loggedIn={this.state.loggedIn} updateFavorite={this.updateFavorite} userId={this.state.id} editMediaList={this.editMediaList}/>} />
+          <Route exact path="/my-favorites" render={(props) => <MyFavorites {...props} medias={this.state.media} loggedIn={this.state.loggedIn} updateFavorite={this.updateFavorite} userId={this.state.id} editMediaList={this.editMediaList} makePrettyDate={this.makePrettyDate}/>} />
 
           <Route exact path="/register" render={(props) => <Register {...props} register={this.register} /> } />
           {/* How do we switch to displaying the edit profile page? There is a unique id in the url */}

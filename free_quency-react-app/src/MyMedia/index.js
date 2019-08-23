@@ -27,7 +27,7 @@ const MyMedia = (props) => {
 	return(
 
 		<Container>
-			<FeaturedMedia loggedIn={props.loggedIn} updateFavorite={props.updateFavorite} userId={props.id} media={featuredMedia} editMediaList={props.editMediaList}/>
+			<FeaturedMedia makePrettyDate={props.makePrettyDate} loggedIn={props.loggedIn} updateFavorite={props.updateFavorite} userId={props.userId} media={featuredMedia} editMediaList={props.editMediaList}/>
 
 			<MediaList  medias={mediaList}/>
 
