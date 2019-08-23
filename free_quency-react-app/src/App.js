@@ -282,6 +282,7 @@ class App extends Component {
         <Route exact path="/media/:id" render={(props) => <ShowMedia {...props}  editMediaList={this.editMediaList} />} />
 
         <Route exact path="/user/:id" render={(props) => <Profile {...props} user={this.state.tempUser} editProfile={this.editProfile} />} />
+
         </Switch>
         
       </main>

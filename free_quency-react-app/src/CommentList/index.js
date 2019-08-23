@@ -9,8 +9,7 @@ const CommentList = (props) => {
 	console.log('/////////////////////////////');
 	console.log(props.comments, "props.comments in CommentList component");
 
-	if (props.comments)
-	const commentList = props.comments.map( media => {
+	const commentList = props.comments.map( comment => {
 		return (
 
 				<Comment key={comment.id} comment={comment} />
@@ -21,7 +20,9 @@ const CommentList = (props) => {
 
 	return(
 
+		<div>
 			{commentList}
+		</div>
 
 	)
 }

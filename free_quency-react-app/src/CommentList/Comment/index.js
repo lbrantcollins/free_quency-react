@@ -10,9 +10,14 @@ const Comment = (props) => {
 
 	return(
 
-		{props.comment.content}
+		<div>
+			<h5>{props.comment.user_id.username}</h5>
+			<p>{props.comment.created_at}</p>
+			<p>{props.comment.content}</p>
+		</div>
 
 	)
 }
 
 export default Comment;
+

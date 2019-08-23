@@ -3,6 +3,7 @@ import { Button, Form, Grid, Header, Image, Message, Segment, Divider, Container
 import { Link } from 'react-router-dom';
 
 import EditMedia from '../EditMedia'
+import CommentList from '../CommentList'
 
 class ShowMedia extends Component {
 	constructor(props){
@@ -97,15 +98,9 @@ class ShowMedia extends Component {
 	}
 
 	render(){
-		const commentList = this.state.comments.map( comment => {
-			return (
-				<div>
-					<h5>{comment.user_id.username}</h5>
-					<p>{comment.created_at}</p>
-					<p>{comment.content}</p>
-				</div>
-			)
-		})
+
+		console.log("------------- SHOW MEDIA ---------------");
+		
 		return(
 
 			<Segment>
@@ -120,12 +115,12 @@ class ShowMedia extends Component {
 						</Link>
 					</div>
 					<div>Favorites: {this.state.favorites.length}</div>
-					<Link onClick={this.toggleEdit}>Edit</Link>
+					<Link to="#" onClick={this.toggleEdit}>Edit</Link>
 					{this.state.editActive ? <EditMedia media={this.state} handleEdit={this.handleEdit}/> : null}
 
 					<p>{this.state.description}</p>
 
-					{commentList}
+					<CommentList comments={this.state.comments}/>
 
 				</Container>
 			</Segment>
@@ -136,3 +131,6 @@ class ShowMedia extends Component {
 }
 
 export default ShowMedia
+
+
+
