@@ -3,20 +3,21 @@ import { Button, Form, Grid, Header, Image, Message, Segment, Divider, Container
 import { Link } from 'react-router-dom';
 
 import EditMedia from '../EditMedia'
+import CommentList from '../CommentList'
 
 class FeaturedMedia extends Component {
 	constructor(props){
 		super(props)
 
 		this.state = {
-			id: this.props.media.id,
-			title: this.props.media.title,
-			url: this.props.media.url,
-			description: this.props.media.description,
-			full_html: this.props.media.full_html,
-			comments: this.props.media.comments,
-			favorites: this.props.media.favorites,
-			user_id: this.props.media.user_id,
+			id: null,
+			title: null,
+			url: null,
+			description: null,
+			full_html: null,
+			comments: [],
+			favorites: [],
+			user_id: null,
 			editActive: false,
 			userFavorited: false
 		}
@@ -29,6 +30,7 @@ class FeaturedMedia extends Component {
 		console.log(this.props.userId);
 
 		this.setState({
+			...this.props.media,
 			userFavorited: this.state.favorites.some( fav => this.props.userId === fav.user_id.id)
 		})
 
@@ -181,16 +183,44 @@ class FeaturedMedia extends Component {
 
 	}
 
+	addComment = async (data) => {
+
+	    try {
+	      
+	      const addCommentResponse = await fetch('http://localhost:8000/comment/', {
+	        method: 'POST',
+	        credentials: 'include',// on every request we have to send the cookie
+	        body: data,
+	        headers: {
+	          'enctype': 'multipart/form-data'
+	        }
+	      })
+
+	      const parsedResponse = await addCommentResponse.json();
+
+	      console.log(parsedResponse);
+
+	      const newList = this.state.comments
+
+	      newList.push(parsedResponse.data)
+
+	      this.setState({
+	        comment: newList
+	      })
+
+	      return parsedResponse
+
+
+	    } catch(err){
+	      console.log(err);
+	    }
+	}
+
+
+  
+
 	render(){
-		const commentList = this.state.comments.map( comment => {
-			return (
-				<div>
-					<h5>{comment.user_id.username}</h5>
-					<p>{comment.created_at}</p>
-					<p>{comment.content}</p>
-				</div>
-			)
-		})
+		
 		return(
 
 			<Segment>
@@ -199,7 +229,7 @@ class FeaturedMedia extends Component {
 				<Divider />
 				<Container textAlign='left'>
 					<a href={this.state.url}><Header as='h2'>{this.state.title}</Header></a>
-					<div>By: <Link to={'/user/' + this.state.user_id.id}>{this.state.user_id.username}</Link></div>
+					<div>By: { this.state.user_id ? <Link to={'/user/' + this.state.user_id.id}>{this.state.user_id.username}</Link> : null }</div>
 					<div>Favorites: {this.state.favorites.length} </div>
 
 					{ this.props.loggedIn ?
@@ -210,10 +240,17 @@ class FeaturedMedia extends Component {
 								<Icon onClick={this.handleFavoriteClick} name="star outline"/> 
 							}
 
-							{	this.userId === this.state.user_id.id ?
+							{ this.state.user_id ? 
 								<div>
-									<Link onClick={this.toggleEdit}>Edit</Link>
-									{this.state.editActive ? <EditMedia media={this.state} handleEdit={this.handleEdit}/> : null}
+									{	this.userId === this.state.user_id.id ?
+										<div>
+											<Link onClick={this.toggleEdit}>Edit</Link>
+											{this.state.editActive ? <EditMedia media={this.state} handleEdit={this.handleEdit}/> : null}
+										</div>
+										:
+										null
+
+									}
 								</div>
 								:
 								null
@@ -228,7 +265,7 @@ class FeaturedMedia extends Component {
 
 					<p>{this.state.description}</p>
 
-					{commentList}
+					<CommentList comments={this.state.comments} mediaId={this.state.id} addComment={this.addComment}/>
 
 				</Container>
 			</Segment>

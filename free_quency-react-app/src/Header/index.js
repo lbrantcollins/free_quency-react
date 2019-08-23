@@ -6,11 +6,11 @@ const Header = (props) => {
 	return(
 
 			<Menu>
-				<Menu.Item><Link to='#'>Browse Media</Link></Menu.Item>
+				<Menu.Item><Link to='/browse-media'>Browse Media</Link></Menu.Item>
 
 				{ props.loggedIn ? 
 					<Menu.Menu>
-						<Menu.Item><Link to='#'>My Media</Link></Menu.Item>
+						<Menu.Item><Link to='my-media'>My Media</Link></Menu.Item>
 						<Menu.Item><Link to='#'>My Favorites</Link></Menu.Item>
 						<Menu.Item><Link to='/user'>Profile</Link></Menu.Item>
 						<Menu.Item><Link to='/media/new'><Icon name="plus"/></Link></Menu.Item>
