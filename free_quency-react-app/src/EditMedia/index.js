@@ -79,7 +79,7 @@ class EditMedia extends Component {
               <Form.Input fluid icon='keyboard' iconPosition='left' placeholder='description' type='text' name='description' value={this.state.description} onChange={this.handleChange}/>
               URL:
               <Form.Input fluid icon='paperclip' iconPosition='left' type='url' name='url' value={this.state.url} onChange={this.handleChange}/>
-              <Button fluid size='large' type='sumbit'>Register</Button>
+              <Button fluid size='large' type='sumbit'>Submit Changes</Button>
              
             </Segment>
           </Form>

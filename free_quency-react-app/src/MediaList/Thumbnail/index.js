@@ -13,8 +13,8 @@ const Thumbnail = (props) => {
 		<Card.Content>
 			<Link to={'/media/' + props.media.id}>
 
-			<Image src={props.media.thumbnail_html} fluid/>
-			</Link>
+				<Image src={props.media.thumbnail_html} fluid/>
+			</Link> 
 			<Card.Header>{props.media.title}</Card.Header>
 			<Card.Meta>{props.media.favorites.length} Favorites</Card.Meta>
 		</Card.Content>

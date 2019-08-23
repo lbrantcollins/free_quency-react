@@ -75,14 +75,14 @@ class Profile extends Component {
 	        	</div>
 
 
-				<Menu.Menu>
+				<Menu>
 					<Menu.Item>
 						<Link to='#' onClick={this.toggleToPosted} >Posted Media</Link>
 					</Menu.Item>
 					<Menu.Item>
 						<Link to='#' onClick={this.toggleToFavorites} >Favorites</Link>
 					</Menu.Item>
-				</Menu.Menu> 
+				</Menu> 
 
 				{this.state.showPostedMedia ? <MediaList medias={this.state.posted_media}/> : <MediaList medias={this.state.favorited_media}/>}
 
