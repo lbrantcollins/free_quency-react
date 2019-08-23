@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form, Grid, Header, Image, Message, Segment, Divider, Container } from 'semantic-ui-react';
+import { Button, Form, Grid, Header, Image, Message, Segment, Divider, Container, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 import EditMedia from '../EditMedia'
@@ -17,7 +17,8 @@ class ShowMedia extends Component {
 			comments: [],
 			favorites: [],
 			user_id: null,
-			editActive: false
+			editActive: false,
+			userFavorited: false
 
 		}
 	}
@@ -44,6 +45,10 @@ class ShowMedia extends Component {
 	      this.setState({
 	        ...parsedResponse.data
 	      })
+
+	      this.setState({
+			userFavorited: this.state.favorites.some( fav => this.props.userId === fav.user_id.id)
+		  })
 
 	      console.log(this.state.user);
 	    } catch (err) {
@@ -96,6 +101,109 @@ class ShowMedia extends Component {
 
 	}
 
+	handleFavoriteClick = async () => {
+
+		console.log(this.state.favorites, 'FAVORITES BEFORE CHANGES');
+
+
+
+		if (this.state.userFavorited) {
+	      // is fav was true, delete favorite from db
+
+	      	console.log(this.props.userId);
+
+	      	this.state.favorites.forEach( favorite => console.log(favorite.user_id.id))
+
+	      	const favIndex = this.state.favorites.findIndex( favorite => this.props.userId === favorite.user_id.id)
+
+
+
+	      	console.log(favIndex);
+
+		    const favId = this.state.favorites[favIndex].id
+
+		    try {
+
+			    const favoriteResponse = await fetch('http://localhost:8000/favorite/' + favId, {
+			      method: 'DELETE',
+			      credentials: 'include',// on every request we have to send the cookie
+			      headers: {
+			        'enctype': 'multipart/form-data'
+			      }
+			   	})
+
+			    const parsedResponse = await favoriteResponse.json();
+
+			    console.log(parsedResponse);
+
+				this.props.updateFavorite(null, this.state.id, favId)
+
+				const newFavList = this.state.favorites
+
+				newFavList.splice(favIndex, 1)
+
+				console.log(newFavList, 'afterchange');
+
+			    this.setState({
+			      favorites: newFavList
+			    })
+
+			    console.log(this.state.user);
+		    } catch (err) {
+		      	console.log(err)
+		    }
+
+
+	    } else {
+	      // else, add favorite from db
+	      	try {
+
+	      		const data = new FormData();
+			    data.append('user_id', this.props.userId);
+			    data.append('media_id', this.state.id);
+
+			    const favoriteResponse = await fetch('http://localhost:8000/favorite/', {
+			      method: 'POST',
+			      credentials: 'include',// on every request we have to send the cookie
+			      body: data,
+			      headers: {
+			        'enctype': 'multipart/form-data'
+			      }
+			   	})
+
+			    const parsedResponse = await favoriteResponse.json();
+
+			    console.log(parsedResponse);
+
+				this.props.updateFavorite(parsedResponse.data, this.state.id, null)
+
+				const newFavList = this.state.favorites
+
+				console.log(newFavList, 'NEW FAV BEFORE CHANGE');
+
+				newFavList.push(parsedResponse.data)
+
+				console.log(newFavList,'afterchange');
+
+			    this.setState({
+			      favorites: newFavList
+			    })
+
+			    console.log(this.state.user);
+		    } catch (err) {
+		      	console.log(err)
+		    }
+
+	    }
+
+
+		this.setState({
+			userFavorited: !this.state.userFavorited
+		})
+
+
+	}
+
 	render(){
 		const commentList = this.state.comments.map( comment => {
 			return (
@@ -120,6 +228,11 @@ class ShowMedia extends Component {
 						</Link>
 					</div>
 					<div>Favorites: {this.state.favorites.length}</div>
+					{ this.state.userFavorited == true ? 
+						<Icon onClick={this.handleFavoriteClick} name="star"/> 
+						: 
+						<Icon onClick={this.handleFavoriteClick} name="star outline"/> 
+					}
 					<Link onClick={this.toggleEdit}>Edit</Link>
 					{this.state.editActive ? <EditMedia media={this.state} handleEdit={this.handleEdit}/> : null}
 
