@@ -7,18 +7,21 @@ import { Link } from 'react-router-dom';
 
 const Comment = (props) => {
 
+	// In SQLite dates STRING with this format:
+	const date = props.makePrettyDate(props.comment.created_at)
+	console.log("DATE ------>" + date + " at (" + ")<------");
 
 	return(
 
-		<div>
 
-			<h5>{props.comment.user_id.username}</h5>
-			<p>{props.comment.created_at}</p>
-			<p>{props.comment.content}</p>
+		<Card.Content>
+			<Card.Header>{props.comment.user_id.username}</Card.Header>
+			<Card.Meta>{date}</Card.Meta>
+			<Card.Meta>{props.comment.content}</Card.Meta>
+		</Card.Content>
 
 			
 
-		</div>
 	)
 }
 

@@ -290,7 +290,7 @@ class ShowMedia extends Component {
 
 					<p>{this.state.description}</p>
 
-					<CommentList comments={this.state.comments} mediaId={this.state.id} addComment={this.addComment}/>
+					<CommentList comments={this.state.comments} mediaId={this.state.id} addComment={this.addComment} makePrettyDate={this.props.makePrettyDate}/>
 
 				</Container>
 			</Segment>
