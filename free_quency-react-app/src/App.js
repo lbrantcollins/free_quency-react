@@ -11,6 +11,7 @@ import AddMedia from './AddMedia';
 import Header from './Header'; 
 import FeaturedMedia from './FeaturedMedia'; 
 import MediaList from './MediaList'; 
+import Profile from './Profile';
 
   
 class App extends Component {
@@ -25,7 +26,8 @@ class App extends Component {
       image: {},
       loggedIn: false,
       media: null,
-      featuredMedia: {}
+      featuredMedia: {},
+      tempUser: '',
     }
   }
 
@@ -48,7 +50,29 @@ class App extends Component {
     }
     console.log(this.state.featuredMedia, 'featured media');
 
+    try {
+
+      const userResponse = await fetch('http://localhost:8000/user/4', {
+        method: 'GET',
+        credentials: 'include',// on every request we have to send the cookie
+        headers: {
+          'enctype': 'multipart/form-data'
+        }
+      })
+
+      const parsedResponse2 = await userResponse.json();
+
+      this.setState({
+        tempUser: parsedResponse2.data
+      })
+
+
+    } catch (err) {
+      console.log(err)
+    }
+
   }
+
 
   logout = async (e) => {
 
@@ -249,6 +273,8 @@ class App extends Component {
         <Route exact path="/mediaf" render={(props) => <FeaturedMedia {...props} media={this.state.featuredMedia} editMediaList={this.editMediaList}/>} />
         <Route exact path="/medias" render={(props) => <MediaList {...props} medias={this.state.media}/>} />
         <Route exact path="/user/edit" render={(props) => <EditProfile {...props} currentUser={this.state} editProfile={this.editProfile} />} />
+
+        <Route exact path="/user" render={(props) => <Profile {...props} user={this.state.tempUser} editProfile={this.editProfile} />} />
         </Switch>
         
       </main>

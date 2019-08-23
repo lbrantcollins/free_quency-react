@@ -12,6 +12,7 @@ const Header = (props) => {
 					<Menu.Menu>
 						<Menu.Item><Link to='#'>My Media</Link></Menu.Item>
 						<Menu.Item><Link to='#'>My Favorites</Link></Menu.Item>
+						<Menu.Item><Link to='/user'>Profile</Link></Menu.Item>
 						<Menu.Item><Link to='/media/new'><Icon name="plus"/></Link></Menu.Item>
 						<Menu.Item><Link to='/user/edit'>Edit Profile</Link></Menu.Item>
 						<Menu.Item><Link to='/mediaf'>feature media</Link></Menu.Item>
