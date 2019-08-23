@@ -258,6 +258,44 @@ class App extends Component {
     })
   }
 
+  updateFavorite = (newFav, mediaId, favId) => {
+
+    console.log(newFav, favId);
+
+    const newMedia = this.state.media
+
+    if (newFav) {
+      // if newFav exists, add to mediaId
+
+
+      newMedia.forEach( media => {
+        if (media.id === mediaId) {
+          media.favorites.push(newFav)
+        }
+      })
+
+    } else {
+      // else delete favId
+
+      newMedia.forEach( media => {
+        if (media.id === mediaId) {
+
+          media.favorites = media.favorites.filter( favorite => favorite.id !== favId )
+          console.log(media.favorites, 'media.favorites in app');
+
+
+        }
+      })
+
+
+    }
+
+    this.setState({
+      media: newMedia
+    })
+
+  }
+
   // what should the component render
   render () {
     // Make sure to return some UI
@@ -274,13 +312,13 @@ class App extends Component {
           <Route exact path="/media/new" render={(props) => <AddMedia {...props} addMedia={this.addMedia}/>} />
         {/* How do we switch to displaying the edit profile page? There is a unique id in the url */}
 
-        <Route exact path="/mediaf" render={(props) => <FeaturedMedia {...props} media={this.state.featuredMedia} editMediaList={this.editMediaList}/>} />
+        <Route exact path="/mediaf" render={(props) => <FeaturedMedia {...props} updateFavorite={this.updateFavorite} userId={this.state.id} media={this.state.featuredMedia} editMediaList={this.editMediaList}/>} />
 
         <Route exact path="/medias" render={(props) => <MediaList {...props} medias={this.state.media}/>} />
 
         <Route exact path="/user/edit" render={(props) => <EditProfile {...props} currentUser={this.state} editProfile={this.editProfile} />} />
 
-        <Route exact path="/media/:id" render={(props) => <ShowMedia {...props}  editMediaList={this.editMediaList} addComment={this.addComment}/>} />
+        <Route exact path="/media/:id" render={(props) => <ShowMedia {...props} updateFavorite={this.updateFavorite} userId={this.state.id} editMediaList={this.editMediaList} />} />
 
         <Route exact path="/user/:id" render={(props) => <Profile {...props} user={this.state.tempUser} editProfile={this.editProfile} />} />
 
