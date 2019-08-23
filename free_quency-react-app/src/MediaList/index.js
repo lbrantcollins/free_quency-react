@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
-import { Button, Form, Grid, Image, Message, Segment, Menu, Icon } from 'semantic-ui-react';
+import { Card, Button, Form, Grid, Image, Message, Segment, Menu, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 import Thumbnail from './Thumbnail'
 
 const MediaList = (props) => {
 
+	console.log('/////////////////////////////');
+	console.log(props.medias, "props.medias in MediaList component");
+
 	const mediaList = props.medias.map( media => {
 		return (
 
-			<Thumbnail media={media} />
+				<Thumbnail key={media.id} media={media} />
 
 		)
 
@@ -17,9 +20,9 @@ const MediaList = (props) => {
 
 	return(
 
-		<Segment>
+		<Card.Group>
 			{mediaList}
-		</Segment>
+		</Card.Group>
 
 	)
 }
