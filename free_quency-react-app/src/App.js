@@ -206,6 +206,7 @@ class App extends Component {
 
   }
 
+  
   editProfile = async (data) => {
 
     console.log("-----------DATA IN editProfile IN App.js----------------");
@@ -279,7 +280,7 @@ class App extends Component {
 
         <Route exact path="/user/edit" render={(props) => <EditProfile {...props} currentUser={this.state} editProfile={this.editProfile} />} />
 
-        <Route exact path="/media/:id" render={(props) => <ShowMedia {...props}  editMediaList={this.editMediaList} />} />
+        <Route exact path="/media/:id" render={(props) => <ShowMedia {...props}  editMediaList={this.editMediaList} addComment={this.addComment}/>} />
 
         <Route exact path="/user/:id" render={(props) => <Profile {...props} user={this.state.tempUser} editProfile={this.editProfile} />} />
 

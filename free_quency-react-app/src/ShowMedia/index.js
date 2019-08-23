@@ -97,6 +97,42 @@ class ShowMedia extends Component {
 
 	}
 
+	addComment = async (data) => {
+
+    try {
+      
+      const addCommentResponse = await fetch('http://localhost:8000/comment/', {
+        method: 'POST',
+        credentials: 'include',// on every request we have to send the cookie
+        body: data,
+        headers: {
+          'enctype': 'multipart/form-data'
+        }
+      })
+
+      const parsedResponse = await addCommentResponse.json();
+
+      console.log(parsedResponse);
+
+      const newList = this.state.comment
+
+      newList.push(parsedResponse.data)
+
+      this.setState({
+        comment: newList
+      })
+
+      return parsedResponse
+
+
+    } catch(err){
+      console.log(err);
+    }
+
+
+  }
+
+
 	render(){
 
 		console.log("------------- SHOW MEDIA ---------------");
@@ -120,7 +156,7 @@ class ShowMedia extends Component {
 
 					<p>{this.state.description}</p>
 
-					<CommentList comments={this.state.comments}/>
+					<CommentList comments={this.state.comments} mediaId={this.state.id} addComment={this.addComment}/>
 
 				</Container>
 			</Segment>
