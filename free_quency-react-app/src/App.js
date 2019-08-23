@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import { Route, Switch } from 'react-router-dom';
-import { Redirect } from 'react-router-dom'
+import { Route, Switch, BrowserRouter as Router, Link } from 'react-router-dom';
 
 import Register from './Register'; 
 import Login from './Login'; 
@@ -52,7 +51,7 @@ class App extends Component {
 
     try {
 
-      const userResponse = await fetch('http://localhost:8000/user/4', {
+      const userResponse = await fetch('http://localhost:8000/user/1', {
         method: 'GET',
         credentials: 'include',// on every request we have to send the cookie
         headers: {
@@ -65,7 +64,7 @@ class App extends Component {
       this.setState({
         tempUser: parsedResponse2.data
       })
-
+      console.log(this.state.tempUser, 'TEMP USER');
 
     } catch (err) {
       console.log(err)
@@ -274,7 +273,7 @@ class App extends Component {
         <Route exact path="/medias" render={(props) => <MediaList {...props} medias={this.state.media}/>} />
         <Route exact path="/user/edit" render={(props) => <EditProfile {...props} currentUser={this.state} editProfile={this.editProfile} />} />
 
-        <Route exact path="/user" render={(props) => <Profile {...props} user={this.state.tempUser} editProfile={this.editProfile} />} />
+        <Route exact path="/user/:id" render={(props) => <Profile {...props} user={this.state.tempUser} editProfile={this.editProfile} />} />
         </Switch>
         
       </main>
