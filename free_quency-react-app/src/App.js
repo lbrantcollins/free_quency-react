@@ -73,6 +73,23 @@ class App extends Component {
 
   }
 
+  makePrettyDate = (str) => {
+
+    const date = new Date(str);
+
+    const options = { 
+        // weekday: 'short', 
+        year: 'numeric', 
+        month: 'numeric', 
+        day: 'numeric', 
+        timeZone: 'America/Chicago', 
+        hour: 'numeric',
+        hour12: true, 
+        minute: 'numeric' };
+
+    return date.toLocaleDateString('en-US',options)
+
+}
 
   logout = async (e) => {
 
@@ -323,7 +340,7 @@ class App extends Component {
 
         <Route exact path="/user/edit" render={(props) => <EditProfile {...props} currentUser={this.state} editProfile={this.editProfile} />} />
 
-        <Route exact path="/media/:id" render={(props) => <ShowMedia {...props} loggedIn={this.state.loggedIn} updateFavorite={this.updateFavorite} userId={this.state.id} editMediaList={this.editMediaList} />} />
+        <Route exact path="/media/:id" render={(props) => <ShowMedia {...props} loggedIn={this.state.loggedIn} updateFavorite={this.updateFavorite} userId={this.state.id} editMediaList={this.editMediaList} makePrettyDate={this.makePrettyDate}/>} />
 
         <Route exact path="/user/:id" render={(props) => <Profile {...props} user={this.state.tempUser} editProfile={this.editProfile} />} />
 

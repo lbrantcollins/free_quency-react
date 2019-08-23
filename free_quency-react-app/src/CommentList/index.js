@@ -14,7 +14,7 @@ const CommentList = (props) => {
 	const commentList = props.comments.map( comment => {
 		return (
 
-				<Comment key={comment.id} comment={comment} mediaId = {props.mediaId} addComment={props.addComment}/>
+				<Comment key={comment.id} comment={comment} mediaId = {props.mediaId} addComment={props.addComment} makePrettyDate={props.makePrettyDate}/>
 
 		)
 
