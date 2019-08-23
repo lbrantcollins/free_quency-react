@@ -8,8 +8,41 @@ class Profile extends Component {
 		super(props)
 
 		this.state = {
+			username: null,
+			image: null,
+			about_me: null,
+			posted_media: [],
+			favorited_media: [],
 			showPostedMedia: true,
 		}
+	}
+
+	async componentDidMount() {
+		const { handle } = this.props.match.params
+		console.log(this.props.match.params.id,'props from profile');
+
+		try {
+
+	      const userResponse = await fetch('http://localhost:8000/user/' + this.props.match.params.id, {
+	        method: 'GET',
+	        credentials: 'include',// on every request we have to send the cookie
+	        headers: {
+	          'enctype': 'multipart/form-data'
+	        }
+	      })
+
+	      const parsedResponse = await userResponse.json();
+
+	      console.log(parsedResponse.data);
+
+	      this.setState({
+	        ...parsedResponse.data
+	      })
+
+	      console.log(this.state.user);
+	    } catch (err) {
+	      console.log(err)
+	    }
 	}
 
 	toggleToPosted = () => {
@@ -27,16 +60,17 @@ class Profile extends Component {
 
 	render() {
 
+		console.log(this.state.user, 'profile user on render');
+
 		return (
 
 			<div>
-
 				<div>
-				<h1>{this.props.user.username}</h1>
 
-	             <img src={this.props.user.image} alt="existing profile"/>
-	             <h2>About Me</h2>
-	             <p>{this.props.user.about_me}</p>
+					<h1>{this.state.username}</h1>
+		             <img src={this.state.image} alt="existing profile"/>
+		             <h2>About Me</h2>
+		             <p>{this.state.about_me}</p>
 
 	        	</div>
 
@@ -50,7 +84,8 @@ class Profile extends Component {
 					</Menu.Item>
 				</Menu.Menu> 
 
-				{this.state.showPostedMedia ? <MediaList medias={this.props.user.posted_media}/> : <MediaList medias={this.props.user.favorited_media}/>}
+				{this.state.showPostedMedia ? <MediaList medias={this.state.posted_media}/> : <MediaList medias={this.state.favorited_media}/>}
+
 
 			</div>
 
