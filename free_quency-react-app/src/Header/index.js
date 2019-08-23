@@ -6,7 +6,7 @@ const Header = (props) => {
 	return(
 
 			<Menu>
-				<Menu.Item><Link to='#'>Browse Media</Link></Menu.Item>
+				<Menu.Item><Link to='/browse-media'>Browse Media</Link></Menu.Item>
 
 				{ props.loggedIn ? 
 					<Menu.Menu>
