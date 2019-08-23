@@ -71,6 +71,8 @@ class Register extends Component {
 
     const registerCall = this.props.register(data);
 
+    this.props.history.push('/browse-media')
+
     // registerCall.then((data) => {
     //   console.log(data)
     //     if(data.status.message === "Success"){

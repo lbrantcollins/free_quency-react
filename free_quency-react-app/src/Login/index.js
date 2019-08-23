@@ -32,6 +32,8 @@ class Login extends Component {
 
     const loginResponse = this.props.logIn(data);
 
+    this.props.history.push('/browse-media')
+
     // login.then((data) => {
     //   if(data.status.message === 'Success'){
     //     this.props.history.push('/profile')

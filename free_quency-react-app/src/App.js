@@ -13,6 +13,7 @@ import MediaList from './MediaList';
 import Profile from './Profile';
 import ShowMedia from './ShowMedia';
 import BrowseMedia from './BrowseMedia'
+import MyMedia from './MyMedia'
 
   
 class App extends Component {
@@ -312,7 +313,9 @@ class App extends Component {
         <Switch>
           <Route exact path="/login" render={(props) => <Login {...props} logIn={this.logIn} />} />
 
-          <Route exact path="/browse-media" render={(props) => <BrowseMedia {...props} medias={this.state.media} />} />
+          <Route exact path="/browse-media" render={(props) => <BrowseMedia {...props} medias={this.state.media} loggedIn={this.state.loggedIn} updateFavorite={this.updateFavorite} userId={this.state.id} editMediaList={this.editMediaList}/>} />
+
+          <Route exact path="/my-media" render={(props) => <MyMedia {...props} medias={this.state.media} loggedIn={this.state.loggedIn} updateFavorite={this.updateFavorite} userId={this.state.id} editMediaList={this.editMediaList}/>} />
 
           <Route exact path="/register" render={(props) => <Register {...props} register={this.register} /> } />
           {/* How do we switch to displaying the edit profile page? There is a unique id in the url */}
