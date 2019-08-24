@@ -120,7 +120,7 @@ class ShowMedia extends Component {
 
       console.log(parsedResponse);
 
-      const newList = this.state.comments
+      const newList = this.state.comments.slice()
 
       newList.push(parsedResponse.data)
 
@@ -129,6 +129,37 @@ class ShowMedia extends Component {
       })
 
       return parsedResponse
+
+
+    } catch(err){
+      console.log(err);
+    }
+
+
+  }
+
+  deleteComment = async (commentId) => {
+
+    try {
+      
+      const deleteCommentResponse = await fetch('http://localhost:8000/comment/' + commentId, {
+        method: 'DELETE',
+        credentials: 'include'
+      })
+
+      const parsedResponse = await deleteCommentResponse.json();
+
+      const newList = this.state.comments.slice();
+
+      newlist.filter( comment => comment.id !== commentId);
+
+      await this.setState({
+        comments: newList
+      })
+
+      this.props.deleteCommentFromMedia(commentId);
+
+      return parsedResponse;
 
 
     } catch(err){
@@ -293,7 +324,7 @@ class ShowMedia extends Component {
 
 					<p>{this.state.description}</p>
 
-					<CommentList comments={this.state.comments} mediaId={this.state.id} addComment={this.addComment} makePrettyDate={this.props.makePrettyDate}/>
+					<CommentList comments={this.state.comments} addComment={this.addComment} makePrettyDate={this.props.makePrettyDate} deleteComment={this.deleteComment}/>
 
 				</Container>
 			</Segment>

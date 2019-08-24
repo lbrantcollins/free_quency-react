@@ -92,7 +92,12 @@ class App extends Component {
 
     return date.toLocaleDateString('en-US',options)
 
-}
+  }
+
+  deleteCommentFromMedia = (commentId) => {
+
+
+  }
 
   logout = async (e) => {
 
@@ -351,7 +356,7 @@ class App extends Component {
 
         <Route exact path="/user/edit" render={(props) => <EditProfile {...props} currentUser={this.state} editProfile={this.editProfile} />} />
 
-        <Route exact path="/media/:id" render={(props) => <ShowMedia {...props} loggedIn={this.state.loggedIn} updateFavorite={this.updateFavorite} userId={this.state.id} editMediaList={this.editMediaList} makePrettyDate={this.makePrettyDate}/>} />
+        <Route exact path="/media/:id" render={(props) => <ShowMedia {...props} loggedIn={this.state.loggedIn} updateFavorite={this.updateFavorite} userId={this.state.id} editMediaList={this.editMediaList} makePrettyDate={this.makePrettyDate} deleteCommentFromMedia={this.deleteCommentFromMedia}/>} />
 
         <Route exact path="/user/:id" render={(props) => <Profile {...props} user={this.state.tempUser} editProfile={this.editProfile} />} />
 
