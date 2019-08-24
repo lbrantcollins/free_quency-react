@@ -124,9 +124,11 @@ class ShowMedia extends Component {
 
       newList.push(parsedResponse.data)
 
-      this.setState({
-        comment: newList
+      await this.setState({
+        comments: newList
       })
+
+
 
       return parsedResponse
 
@@ -149,9 +151,9 @@ class ShowMedia extends Component {
 
       const parsedResponse = await deleteCommentResponse.json();
 
-      const newList = this.state.comments.slice();
+      let newList = this.state.comments.slice();
 
-      newlist.filter( comment => comment.id !== commentId);
+      newList = newList.filter( comment => comment.id !== commentId);
 
       await this.setState({
         comments: newList
@@ -324,7 +326,13 @@ class ShowMedia extends Component {
 
 					<p>{this.state.description}</p>
 
-					<CommentList comments={this.state.comments} addComment={this.addComment} makePrettyDate={this.props.makePrettyDate} deleteComment={this.deleteComment}/>
+					<CommentList 
+						comments={this.state.comments} 
+						mediaId={this.state.id}
+						addComment={this.addComment} 
+						makePrettyDate={this.props.makePrettyDate} 
+						deleteComment={this.deleteComment}
+					/>
 
 				</Container>
 			</Segment>

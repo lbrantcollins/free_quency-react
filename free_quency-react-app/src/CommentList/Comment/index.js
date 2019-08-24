@@ -18,7 +18,7 @@ const Comment = (props) => {
 			<Card.Header>{props.comment.user_id.username}</Card.Header>
 			<Card.Meta>{date}</Card.Meta>
 			<Card.Meta>{props.comment.content}</Card.Meta>
-			<Button onClick={props.deleteComment(props.comment.id)}>
+			<Button onClick={props.deleteComment.bind(null, props.comment.id)}>
 				Delete
 			</Button>
 		</Card.Content>
@@ -29,4 +29,3 @@ const Comment = (props) => {
 }
 
 export default Comment;
-

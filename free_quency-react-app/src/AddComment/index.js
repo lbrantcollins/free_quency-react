@@ -31,6 +31,10 @@ class AddComment extends Component {
 
     this.props.addComment(data)
 
+    this.setState({
+      content: ''
+    })
+
   }
 
   render(){

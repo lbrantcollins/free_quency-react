@@ -94,8 +94,19 @@ class App extends Component {
 
   }
 
-  deleteCommentFromMedia = (commentId) => {
+  deleteCommentFromMedia = async (commentId) => {
+    // delete comment from media in state
+    const newMedia = this.state.media.slice();
 
+    newMedia.forEach( media => {
+      media.comments = media.comments.filter( comment => {
+        return comment.id != commentId;
+      })
+    })
+
+    await this.setState({
+      media: newMedia
+    })
 
   }
 
