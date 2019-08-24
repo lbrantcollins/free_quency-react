@@ -6,10 +6,6 @@ import FeaturedMedia from '../FeaturedMedia'
 
 const BrowseMedia = (props) => {
 
-	console.log(props.userId, 'BrowseMedia userId');
-
-	console.log(props.makePrettyDate, 'makePrettyDate');
-
 	const randomIndex = Math.floor(Math.random() * props.medias.length)
 
 	const featuredMedia = props.medias[randomIndex]

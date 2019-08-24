@@ -17,11 +17,10 @@ class EditProfile extends Component {
   }
 
   componentDidMount() {
-    console.log('inside component mount');
+
     this.setState({
       ...this.props.currentUser
     }) 
-    console.log(this.state, 'state in editProfile');
   }
 
   handleChange = (e) => {
@@ -32,13 +31,11 @@ class EditProfile extends Component {
       });
     } else {
       // file upload
-      console.log(e.target.files[0])
       this.setState({
         newImage: e.target.files[0],
       });
       
     }
-    console.log(this.state, "state at end of handleChange in editProfile");
   }
 
   handleSubmit = async (e) => {
@@ -52,11 +49,6 @@ class EditProfile extends Component {
     data.append('password', this.state.password);
 
     data.append('file', this.state.newImage);
-
-    console.log(data.entries(), ' this is edit profile data')
-    for (let pair of data.entries()){
-      console.log(pair[0]  ,', ', pair[1])
-    }
 
     this.props.editProfile(data);
 

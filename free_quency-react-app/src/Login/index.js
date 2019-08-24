@@ -13,7 +13,6 @@ class Login extends Component {
   }
 
   handleChange = async (e) => {
-    console.log(this.state)
     this.setState({[e.target.name]: e.target.value}); 
   }
 
@@ -23,27 +22,10 @@ class Login extends Component {
     const data = new FormData();
     data.append('username', this.state.username);
     data.append('password', this.state.password);
-    console.log(data, 'data in login Component');
-
-    console.log(data.entries(), ' this is login data')
-    for (let pair of data.entries()){
-      console.log(pair[0]  ,', ', pair[1])
-    }
 
     const loginResponse = await this.props.logIn(data);
 
     this.props.history.push('/browse-media')
-
-    // login.then((data) => {
-    //   if(data.status.message === 'Success'){
-    //     this.props.history.push('/profile')
-    //   } else {
-    //     console.log(data, this.props)
-    //   }
-    // }).catch((err) => {
-    //   console.log(err)
-    // })
-
 
   }
   render(){

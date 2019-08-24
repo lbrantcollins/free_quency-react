@@ -41,8 +41,6 @@ class ShowMedia extends Component {
 
 	      const parsedResponse = await mediaResponse.json();
 
-	      console.log(parsedResponse.data);
-
 	      await this.setState({
 	        ...parsedResponse.data,
 	        userFavorited: this.state.favorites.some( fav => this.props.userId === fav.user_id.id)
@@ -52,14 +50,9 @@ class ShowMedia extends Component {
 	        userFavorited: this.state.favorites.some( fav => this.props.userId === fav.user_id.id)
 	      })
 
-	      console.log(this.state.user);
 	    } catch (err) {
 	      console.log(err)
 	    }
-
-
-
-		console.log(this.state);
 	}
 
 	toggleEdit = () => {
@@ -82,8 +75,6 @@ class ShowMedia extends Component {
 	      })
 
 	      const parsedResponse = await updateMediaResponse.json();
-
-	      console.log(parsedResponse, "parsedResponse in ShowMedia");
 
 	      if (parsedResponse.status.code === 201) {
 	      	this.setState({
@@ -117,8 +108,6 @@ class ShowMedia extends Component {
       })
 
       const parsedResponse = await addCommentResponse.json();
-
-      console.log(parsedResponse);
 
       const newList = this.state.comments.slice()
 
@@ -173,22 +162,10 @@ class ShowMedia extends Component {
 
 	handleFavoriteClick = async () => {
 
-		console.log(this.state.favorites, 'FAVORITES BEFORE CHANGES');
-
-
-
 		if (this.state.userFavorited) {
 	      // is fav was true, delete favorite from db
 
-	      	console.log(this.props.userId);
-
-	      	this.state.favorites.forEach( favorite => console.log(favorite.user_id.id))
-
 	      	const favIndex = this.state.favorites.findIndex( favorite => this.props.userId === favorite.user_id.id)
-
-
-
-	      	console.log(favIndex);
 
 		    const favId = this.state.favorites[favIndex].id
 
@@ -204,8 +181,6 @@ class ShowMedia extends Component {
 
 			    const parsedResponse = await favoriteResponse.json();
 
-			    console.log(parsedResponse);
-
 				const newFavList = this.state.favorites.slice()
 
 				this.props.updateFavorite(null, this.state.id, favId)
@@ -213,13 +188,10 @@ class ShowMedia extends Component {
 
 				newFavList.splice(favIndex, 1)
 
-				console.log(newFavList, 'afterchange');
-
 			    this.setState({
 			      favorites: newFavList
 			    })
 
-			    console.log(this.state.user);
 		    } catch (err) {
 		      	console.log(err)
 		    }
@@ -244,41 +216,28 @@ class ShowMedia extends Component {
 
 			    const parsedResponse = await favoriteResponse.json();
 
-			    console.log(parsedResponse);
-
 				const newFavList = this.state.favorites.slice()
 
 				this.props.updateFavorite(parsedResponse.data, this.state.id, null)
 
-
-				console.log(newFavList, 'NEW FAV BEFORE CHANGE');
-
 				newFavList.push(parsedResponse.data)
-
-				console.log(newFavList,'afterchange');
 
 			    this.setState({
 			      favorites: newFavList
 			    })
 
-			    console.log(this.state.user);
 		    } catch (err) {
 		      	console.log(err)
 		    }
 
 	    }
 
-
 		this.setState({
 			userFavorited: !this.state.userFavorited
 		})
-
-
 	}
 
-	render(){
-
-		console.log("------------- SHOW MEDIA ---------------");
+	render() {
 		
 		return(
 
@@ -342,7 +301,7 @@ class ShowMedia extends Component {
 	}
 }
 
-export default ShowMedia
+export default ShowMedia;
 
 
 

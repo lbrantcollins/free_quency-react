@@ -19,7 +19,6 @@ class Profile extends Component {
 
 	async componentDidMount() {
 		const { handle } = this.props.match.params
-		console.log(this.props.match.params.id,'props from profile');
 
 		try {
 
@@ -33,13 +32,10 @@ class Profile extends Component {
 
 	      const parsedResponse = await userResponse.json();
 
-	      console.log(parsedResponse.data);
-
 	      this.setState({
 	        ...parsedResponse.data
 	      })
 
-	      console.log(this.state.user);
 	    } catch (err) {
 	      console.log(err)
 	    }
@@ -59,8 +55,6 @@ class Profile extends Component {
 
 
 	render() {
-
-		console.log(this.state.user, 'profile user on render');
 
 		return (
 

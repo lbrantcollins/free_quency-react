@@ -6,14 +6,10 @@ import FeaturedMedia from '../FeaturedMedia'
 
 const MyFavorites = (props) => {
 
-	console.log(props.medias, 'favorites input');
-
 	const userFavorites = props.medias.filter( media => {
 
 		return media.favorites.some( favorite => favorite.user_id.id === props.userId )
 	})
-
-	console.log(userFavorites, 'userFavorites');
 
 	if (!userFavorites.length) {
 

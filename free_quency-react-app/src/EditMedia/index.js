@@ -14,22 +14,17 @@ class EditMedia extends Component {
   }
 
   componentDidMount = () => {
-    console.log(this.props);
 
     this.setState({
       ...this.props
     })
-
-    console.log(this.state);
   }
 
   handleChange = (e) => {
-    console.log(this.state);
 
       this.setState({
         [e.target.name]: e.target.value
       });
-
   }
 
   handleSubmit = (e) => {
@@ -53,11 +48,6 @@ class EditMedia extends Component {
     data.append('title', this.state.title);
     data.append('description', this.state.description);
     data.append('url', this.state.url);
-
-    console.log(data.entries(), ' this is registration data')
-    for (let pair of data.entries()){
-      console.log(pair[0]  ,', ', pair[1])
-    }
 
     this.props.handleEdit(data)
 

@@ -11,7 +11,6 @@ class AddComment extends Component {
   }
 
   handleChange = (e) => {
-    console.log(this.state);
 
       this.setState({
         [e.target.name]: e.target.value
@@ -26,8 +25,6 @@ class AddComment extends Component {
     const data = new FormData();
     data.append('media_id', this.props.mediaId);
     data.append('content', this.state.content);
-
-    console.log(data, '--------------- data in handleSubmit in AddComment component');
 
     this.props.addComment(data)
 

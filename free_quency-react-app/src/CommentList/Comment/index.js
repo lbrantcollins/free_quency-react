@@ -9,7 +9,6 @@ const Comment = (props) => {
 
 	// In SQLite dates STRING with this format:
 	const date = props.makePrettyDate(props.comment.created_at)
-	console.log("DATE ------>" + date + " at (" + ")<------");
 
 	return(
 

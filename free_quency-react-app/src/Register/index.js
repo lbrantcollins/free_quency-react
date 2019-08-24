@@ -19,7 +19,6 @@ class Register extends Component {
       this.setState({[e.target.name]: e.target.value});
     } else {
       // file upload
-      console.log(e.target.files[0])
       this.setState({image: e.target.files[0]});
     }
   }
@@ -38,14 +37,11 @@ class Register extends Component {
 
       const parsedResponse = await registerResponse.json();
 
-      console.log(parsedResponse)
-
       this.setState({
         ...parsedResponse.data,
         loading: false
       })
 
-      console.log(parsedResponse);
       return parsedResponse;
 
     } catch (err) {
@@ -64,26 +60,16 @@ class Register extends Component {
     data.append('about_me', this.state.about);
     data.append('email', this.state.email);
 
-    console.log(data.entries(), ' this is registration data')
-    for (let pair of data.entries()){
-      console.log(pair[0]  ,', ', pair[1])
-    }
-
     const registerCall = await this.props.register(data);
 
     this.props.history.push('/browse-media')
 
-    // registerCall.then((data) => {
-    //   console.log(data)
-    //     if(data.status.message === "Success"){
-    //       this.props.history.push('/profile')
-    //     } else {
-    //       console.log(data, ' this should have an error message? How could you display that on the screen')
-    //     }
-    // })
   }
-  render(){
+
+  render() {
+
     return (
+      
       <Grid textAlign='center' verticalAlign='middle' style={{ height: '100vh'}}>
         <Grid.Column style={{maxWidth: 450}}>
           <Header as='h2' textAlign='center'>

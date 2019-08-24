@@ -35,23 +35,19 @@ class App extends Component {
   }
 
   componentDidMount = async () => {
-    console.log('mounted component');
 
     const allMediaResponse = await fetch('http://localhost:8000/media/')
 
     const parsedResponse = await allMediaResponse.json();
 
-    console.log(parsedResponse, 'parsedResponse, login');
-
     if (parsedResponse.status.code === 200) {
-      console.log('logged in if');
+
       this.setState({
         media: parsedResponse.data,
         featuredMedia: parsedResponse.data[0]
       })
 
     }
-    console.log(this.state.featuredMedia, 'featured media');
 
     try {
 
@@ -68,7 +64,6 @@ class App extends Component {
       this.setState({
         tempUser: parsedResponse2.data
       })
-      console.log(this.state.tempUser, 'TEMP USER');
 
     } catch (err) {
       console.log(err)
@@ -112,8 +107,6 @@ class App extends Component {
 
   logout = async (e) => {
 
-    console.log('LOGOUT');
-
     const logoutResponse = await fetch('http://localhost:8000/user/logout')
 
     const parsedResponse = await logoutResponse.json()
@@ -132,14 +125,6 @@ class App extends Component {
   logIn = async (loginInfo) => {
     try {
 
-      console.log("LOGIN");
-
-      console.log("-----------DATA IN LOGIN IN App.js----------------");
-    for (let pair of loginInfo.entries()){
-      console.log(pair[0]  ,', ', pair[1])
-    }
-    console.log("--------------------------------------------------------");
-
       const loginResponse = await fetch('http://localhost:8000/user/login', {
         method: 'POST',
         credentials: 'include',
@@ -151,18 +136,13 @@ class App extends Component {
 
       const parsedResponse = await loginResponse.json();
 
-      console.log(parsedResponse, 'parsedResponse, login');
-
       if (parsedResponse.status.code === 200) {
-        console.log('logged in if');
         this.setState({
           ...parsedResponse.data,
           loggedIn: true
         })
 
       }
-
-      console.log(this.state, 'state is login');
 
       return parsedResponse
 
@@ -187,19 +167,13 @@ class App extends Component {
 
       const parsedResponse = await registerResponse.json();
 
-      console.log(parsedResponse)
-
       if (parsedResponse.status.code === 201) {
-        console.log('registered and logged in if');
         this.setState({
           ...parsedResponse.data,
           loggedIn: true
         })
 
       }
-
-      console.log(this.state, 'STATE IN register');
-
       return parsedResponse;
 
     } catch (err) {
@@ -221,8 +195,6 @@ class App extends Component {
       })
 
       const parsedResponse = await addMediaResponse.json();
-
-      console.log(parsedResponse);
 
       const newList = this.state.media
 
@@ -250,12 +222,6 @@ class App extends Component {
   
   editProfile = async (data) => {
 
-    console.log("-----------DATA IN editProfile IN App.js----------------");
-    for (let pair of data.entries()){
-      console.log(pair[0]  ,', ', pair[1])
-    }
-    console.log("--------------------------------------------------------");
-
     try {
       
       const updateProfileResponse = await fetch('http://localhost:8000/user/' + this.state.id, {
@@ -268,8 +234,6 @@ class App extends Component {
       })
 
       const parsedResponse = await updateProfileResponse.json();
-
-      console.log(parsedResponse, "parsedResponse in editProfile");
 
       return parsedResponse
 
@@ -287,12 +251,7 @@ class App extends Component {
 
     const indexToUpdate = newList.indexOf( media => media.id == data.id)
 
-    console.log( newList[indexToUpdate], 'old');
-    console.log(data, 'new');
-
     newList[indexToUpdate] = data
-
-    console.log(newList[indexToUpdate], 'new old');
 
     this.setState({
       media: newList
@@ -300,10 +259,6 @@ class App extends Component {
   }
 
   updateFavorite = (newFav, mediaId, favId) => {
-
-    console.log('UPDATE FAVORITE');
-
-    console.log(newFav, favId);
 
     const newMedia = this.state.media
 
@@ -324,13 +279,8 @@ class App extends Component {
         if (media.id === mediaId) {
 
           media.favorites = media.favorites.filter( favorite => favorite.id !== favId )
-          console.log(media.favorites, 'media.favorites in app');
-
-
         }
       })
-
-
     }
 
     this.setState({

@@ -8,9 +8,6 @@ import AddComment from '../AddComment'
 
 const CommentList = (props) => {
 
-	console.log('/////////////////////////////');
-	console.log(props.comments, "props.comments in CommentList component");
-
 	const commentList = props.comments.map( comment => {
 		return (
 
@@ -20,9 +17,7 @@ const CommentList = (props) => {
 					makePrettyDate={props.makePrettyDate} 
 					deleteComment={props.deleteComment}
 				/>
-
 		)
-
 	})
 
 	return(

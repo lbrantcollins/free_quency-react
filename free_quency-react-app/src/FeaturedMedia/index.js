@@ -25,11 +25,6 @@ class FeaturedMedia extends Component {
 
 
 	async componentDidMount(){
-		console.log(this.props.media, 'MEDIA');
-
-		console.log(this.props.userId, 'USERID');
-
-		console.log(this.state.favorites);
 
 		await this.setState({
 			...this.props.media
@@ -39,9 +34,6 @@ class FeaturedMedia extends Component {
 			userFavorited: this.state.favorites.some( fav => this.props.userId === fav.user_id.id)
 		})
 
-		console.log(this.state.userFavorited, 'Favorites????');
-
-		console.log(this.state);
 	}
 
 	toggleEdit = () => {
@@ -65,8 +57,6 @@ class FeaturedMedia extends Component {
 
 	      const parsedResponse = await updateMediaResponse.json();
 
-	      console.log(parsedResponse, "parsedResponse in FeaturedMedia");
-
 	      if (parsedResponse.status.code === 201) {
 	      	this.setState({
 	      		...parsedResponse.data,
@@ -75,8 +65,6 @@ class FeaturedMedia extends Component {
 	      	this.props.editMediaList(parsedResponse.data)
 	      	return parsedResponse
 	      }
-
-
 
 	    } catch(err){
 	      console.log(err);
@@ -87,22 +75,10 @@ class FeaturedMedia extends Component {
 
 	handleFavoriteClick = async () => {
 
-		console.log(this.state.favorites, 'FAVORITES BEFORE CHANGES');
-
-
-
 		if (this.state.userFavorited) {
 	      // is fav was true, delete favorite from db
 
-	      	console.log(this.props.userId);
-
-	      	this.state.favorites.forEach( favorite => console.log(favorite.user_id.id))
-
 	      	const favIndex = this.state.favorites.findIndex( favorite => this.props.userId === favorite.user_id.id)
-
-
-
-	      	console.log(favIndex);
 
 		    const favId = this.state.favorites[favIndex].id
 
@@ -118,8 +94,6 @@ class FeaturedMedia extends Component {
 
 			    const parsedResponse = await favoriteResponse.json();
 
-			    console.log(parsedResponse);
-
 				const newFavList = this.state.favorites.slice()
 
 				this.props.updateFavorite(null, this.state.id, favId)
@@ -127,13 +101,10 @@ class FeaturedMedia extends Component {
 
 				newFavList.splice(favIndex, 1)
 
-				console.log(newFavList, 'afterchange');
-
 			    this.setState({
 			      favorites: newFavList
 			    })
 
-			    console.log(this.state.user);
 		    } catch (err) {
 		      	console.log(err)
 		    }
@@ -158,24 +129,16 @@ class FeaturedMedia extends Component {
 
 			   const parsedResponse = await favoriteResponse.json();
 
-			   console.log(parsedResponse);
-
 				const newFavList = this.state.favorites.slice()
 
 				this.props.updateFavorite(parsedResponse.data, this.state.id, null)
 
-
-				console.log(newFavList, 'NEW FAV BEFORE CHANGE');
-
 				newFavList.push(parsedResponse.data)
-
-				console.log(newFavList,'afterchange');
 
 			    this.setState({
 			      favorites: newFavList
 			    })
 
-			    console.log(this.state.user);
 		    } catch (err) {
 		      	console.log(err)
 		    }
@@ -204,8 +167,6 @@ class FeaturedMedia extends Component {
 	      })
 
 	      const parsedResponse = await addCommentResponse.json();
-
-	      console.log(parsedResponse);
 
 	      const newList = this.state.comments
 

@@ -6,16 +6,11 @@ import Thumbnail from './Thumbnail'
 
 const MediaList = (props) => {
 
-	console.log('/////////////////////////////');
-	console.log(props.medias, "props.medias in MediaList component");
-
 	const mediaList = props.medias.map( media => {
 		return (
 
-				<Thumbnail key={media.id} media={media} />
-
+			<Thumbnail key={media.id} media={media} />
 		)
-
 	})
 
 	return(
@@ -23,8 +18,7 @@ const MediaList = (props) => {
 		<Card.Group>
 			{mediaList}
 		</Card.Group>
-
 	)
 }
 
-export default MediaList
+export default MediaList;
