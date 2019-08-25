@@ -184,6 +184,15 @@ class FeaturedMedia extends Component {
 	    }
 	}
 
+	handleDelete = async () => {
+
+		await this.props.deleteMedia(this.state.id)
+
+		this.props.history.push('/browse-media')
+
+
+	}
+
 
   
 
@@ -213,7 +222,9 @@ class FeaturedMedia extends Component {
 									{	this.userId === this.state.user_id.id ?
 										<div>
 											<Link onClick={this.toggleEdit}>Edit</Link>
+											<Link onClick={this.handleDelete}>Delete</Link>
 											{this.state.editActive ? <EditMedia media={this.state} handleEdit={this.handleEdit}/> : null}
+
 										</div>
 										:
 										null

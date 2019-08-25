@@ -30,7 +30,7 @@ const MyFavorites = (props) => {
 	return(
 
 		<Container>
-			<FeaturedMedia makePrettyDate={props.makePrettyDate} loggedIn={props.loggedIn} updateFavorite={props.updateFavorite} userId={props.userId} media={featuredMedia} editMediaList={props.editMediaList}/>
+			<FeaturedMedia makePrettyDate={props.makePrettyDate} loggedIn={props.loggedIn} updateFavorite={props.updateFavorite} userId={props.userId} media={featuredMedia} editMediaList={props.editMediaList} deleteMedia={props.deleteMedia}/>
 
 			<MediaList  medias={mediaList}/>
 

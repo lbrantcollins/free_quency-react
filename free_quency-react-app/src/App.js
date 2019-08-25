@@ -289,6 +289,45 @@ class App extends Component {
 
   }
 
+  deleteMedia = async (mediaId) => {
+
+    try {
+      
+      const deleteMediaResponse = await fetch('http://localhost:8000/media/' + mediaId, {
+        method: 'DELETE',
+        credentials: 'include',// on every request we have to send the cookie
+        headers: {
+          'enctype': 'multipart/form-data'
+        }
+      })
+
+      const parsedResponse = await deleteMediaResponse.json();
+
+
+
+      let newList = this.state.media
+
+      newList.forEach( media => console.log(media.id !== mediaId) )
+
+      newList = newList.filter( media => media.id !== mediaId )
+
+      console.log(newList);
+
+      this.setState({
+        media: newList
+      })
+
+      console.log(this.state.media);
+
+      return parsedResponse
+
+
+    } catch(err){
+      console.log(err);
+    }
+
+  }
+
   // what should the component render
   render () {
     // Make sure to return some UI
@@ -299,11 +338,11 @@ class App extends Component {
         <Switch>
           <Route exact path="/login" render={(props) => <Login {...props} logIn={this.logIn} />} />
 
-          <Route exact path="/browse-media" render={(props) => <BrowseMedia {...props} medias={this.state.media} loggedIn={this.state.loggedIn} updateFavorite={this.updateFavorite} userId={this.state.id} editMediaList={this.editMediaList} makePrettyDate={this.makePrettyDate} />}  />
+          <Route exact path="/browse-media" render={(props) => <BrowseMedia {...props} medias={this.state.media} loggedIn={this.state.loggedIn} updateFavorite={this.updateFavorite} userId={this.state.id} editMediaList={this.editMediaList} makePrettyDate={this.makePrettyDate} deleteMedia={this.deleteMedia} />}  />
 
-          <Route exact path="/my-media" render={(props) => <MyMedia {...props} medias={this.state.media} loggedIn={this.state.loggedIn} updateFavorite={this.updateFavorite} userId={this.state.id} editMediaList={this.editMediaList} makePrettyDate={this.makePrettyDate} />} />
+          <Route exact path="/my-media" render={(props) => <MyMedia {...props} medias={this.state.media} loggedIn={this.state.loggedIn} updateFavorite={this.updateFavorite} userId={this.state.id} editMediaList={this.editMediaList} makePrettyDate={this.makePrettyDate} deleteMedia={this.deleteMedia} />} />
 
-          <Route exact path="/my-favorites" render={(props) => <MyFavorites {...props} medias={this.state.media} loggedIn={this.state.loggedIn} updateFavorite={this.updateFavorite} userId={this.state.id} editMediaList={this.editMediaList} makePrettyDate={this.makePrettyDate}/>} />
+          <Route exact path="/my-favorites" render={(props) => <MyFavorites {...props} medias={this.state.media} loggedIn={this.state.loggedIn} updateFavorite={this.updateFavorite} userId={this.state.id} editMediaList={this.editMediaList} makePrettyDate={this.makePrettyDate} deleteMedia={this.deleteMedia}/>} />
 
           <Route exact path="/register" render={(props) => <Register {...props} register={this.register} /> } />
           {/* How do we switch to displaying the edit profile page? There is a unique id in the url */}
@@ -317,7 +356,7 @@ class App extends Component {
 
         <Route exact path="/user/edit" render={(props) => <EditProfile {...props} currentUser={this.state} editProfile={this.editProfile} />} />
 
-        <Route exact path="/media/:id" render={(props) => <ShowMedia {...props} loggedIn={this.state.loggedIn} updateFavorite={this.updateFavorite} userId={this.state.id} editMediaList={this.editMediaList} makePrettyDate={this.makePrettyDate} deleteCommentFromMedia={this.deleteCommentFromMedia}/>} />
+        <Route exact path="/media/:id" render={(props) => <ShowMedia {...props} loggedIn={this.state.loggedIn} updateFavorite={this.updateFavorite} userId={this.state.id} editMediaList={this.editMediaList} makePrettyDate={this.makePrettyDate} deleteCommentFromMedia={this.deleteCommentFromMedia} deleteMedia={this.deleteMedia}/>} />
 
         <Route exact path="/user/:id" render={(props) => <Profile {...props} user={this.state.tempUser} editProfile={this.editProfile} />} />
 
