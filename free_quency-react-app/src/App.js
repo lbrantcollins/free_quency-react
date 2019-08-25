@@ -307,8 +307,6 @@ class App extends Component {
 
       let newList = this.state.media
 
-      newList.forEach( media => console.log(media.id !== mediaId) )
-
       newList = newList.filter( media => media.id !== mediaId )
 
       console.log(newList);

@@ -219,7 +219,7 @@ class FeaturedMedia extends Component {
 
 							{ this.state.user_id ? 
 								<div>
-									{	this.userId === this.state.user_id.id ?
+									{	this.props.userId === this.state.user_id.id ?
 										<div>
 											<Link onClick={this.toggleEdit}>Edit</Link>
 											<Link onClick={this.handleDelete}>Delete</Link>
