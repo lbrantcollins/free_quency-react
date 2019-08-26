@@ -24,6 +24,7 @@ const CommentList = (props) => {
 	return(
 
 		<div>
+			<h3>Comments:</h3>
 			<Card>
 				{commentList}
 			</Card>
