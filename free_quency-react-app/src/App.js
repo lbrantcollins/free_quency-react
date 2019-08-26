@@ -36,34 +36,21 @@ class App extends Component {
 
    componentDidMount = async () => {
 
-      const allMediaResponse = await fetch('http://localhost:8000/media/')
-
-      const parsedResponse = await allMediaResponse.json();
-
-      if (parsedResponse.status.code === 200) {
-
-         this.setState({
-            media: parsedResponse.data,
-            featuredMedia: parsedResponse.data[0]
-         })
-
-      }
 
       try {
 
-         const userResponse = await fetch('http://localhost:8000/user/1', {
-            method: 'GET',
-            credentials: 'include',// on every request we have to send the cookie
-            headers: {
-               'enctype': 'multipart/form-data'
-            }
-         })
+         const allMediaResponse = await fetch('http://localhost:8000/media/')
 
-         const parsedResponse2 = await userResponse.json();
+         const parsedResponse = await allMediaResponse.json();
 
-         this.setState({
-            tempUser: parsedResponse2.data
-         })
+         if (parsedResponse.status.code === 200) {
+
+            await this.setState({
+               media: parsedResponse.data,
+               featuredMedia: parsedResponse.data[0]
+            })
+
+         }
 
       } catch (err) {
          console.log(err)
@@ -381,19 +368,6 @@ class App extends Component {
                   addMedia={this.addMedia}/>} 
                />
 
-               <Route exact path="/mediaf" render={(props) => <FeaturedMedia {...props} l
-                  loggedIn={this.state.loggedIn} 
-                  updateFavorite={this.updateFavorite} 
-                  editMediaList={this.editMediaList} 
-                  media={this.state.featuredMedia} 
-                  userId={this.state.id} 
-                  deleteCommentFromMedia={this.deleteCommentFromMedia}/>} 
-               />
-
-               <Route exact path="/medias" render={(props) => <MediaList {...props} 
-                  medias={this.state.media}/>} 
-               />
-
                <Route exact path="/user/edit" render={(props) => <EditProfile {...props} 
                   currentUser={this.state} 
                   editProfile={this.editProfile} />} 
@@ -412,6 +386,26 @@ class App extends Component {
                <Route exact path="/user/:id" render={(props) => <Profile {...props} 
                   editProfile={this.editProfile} 
                   userId={this.state.id} />} 
+               />
+
+               <Route exact path="/:nonsense" render={(props) => <BrowseMedia {...props} 
+                  medias={this.state.media} 
+                  loggedIn={this.state.loggedIn} 
+                  updateFavorite={this.updateFavorite} 
+                  userId={this.state.id} 
+                  editMediaList={this.editMediaList} 
+                  makePrettyDate={this.makePrettyDate} 
+                  deleteMedia={this.deleteMedia} />}  
+               />
+
+               <Route exact path="/" render={(props) => <BrowseMedia {...props} 
+                  medias={this.state.media} 
+                  loggedIn={this.state.loggedIn} 
+                  updateFavorite={this.updateFavorite} 
+                  userId={this.state.id} 
+                  editMediaList={this.editMediaList} 
+                  makePrettyDate={this.makePrettyDate} 
+                  deleteMedia={this.deleteMedia} />}  
                />
 
             </Switch>

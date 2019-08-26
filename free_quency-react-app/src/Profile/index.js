@@ -15,6 +15,7 @@ class Profile extends Component {
 			posted_media: [],
 			favorited_media: [],
 			showPostedMedia: true,
+			activeItem: 'postedMedia'
 		}
 	}
 
@@ -44,13 +45,16 @@ class Profile extends Component {
 
 	toggleToPosted = () => {
 		this.setState({
-			showPostedMedia: true
+			showPostedMedia: true,
+			activeItem: 'postedMedia'
 		})
 	}
 
 	toggleToFavorites = () => {
 		this.setState({
-			showPostedMedia: false
+			showPostedMedia: false,
+			activeItem: 'favorites'
+
 		})
 	}
 
@@ -76,11 +80,17 @@ class Profile extends Component {
 
 
 				<Menu>
-					<Menu.Item>
-						<Link to='#' onClick={this.toggleToPosted} >Posted Media</Link>
+					<Menu.Item 
+						name='postedMedia'
+            		active={this.state.activeItem === 'postedMedia'}
+						onClick={this.toggleToPosted}>
+						Posted Media
 					</Menu.Item>
-					<Menu.Item>
-						<Link to='#' onClick={this.toggleToFavorites} >Favorites</Link>
+					<Menu.Item 
+						name='favorites'
+            		active={this.state.activeItem === 'favorites'}
+						onClick={this.toggleToFavorites}>
+						Favorites
 					</Menu.Item>
 				</Menu> 
 

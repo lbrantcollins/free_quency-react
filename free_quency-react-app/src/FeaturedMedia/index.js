@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, Segment, Divider, Container, Icon } from 'semantic-ui-react';
+import { Header, Segment, Divider, Container, Icon, Button, Label } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 import EditMedia from '../EditMedia'
@@ -25,6 +25,8 @@ class FeaturedMedia extends Component {
 
 
 	async componentDidMount(){
+
+		console.log(this.props.media, 'MEDIA PROPS IN FEATURED');
 
 		await this.setState({
 			...this.props.media
@@ -227,14 +229,29 @@ class FeaturedMedia extends Component {
 				<Container textAlign='left'>
 					<a href={this.state.url}><Header as='h2'>{this.state.title}</Header></a>
 					<div>By: { this.state.user_id ? <Link to={'/user/' + this.state.user_id.id}>{this.state.user_id.username}</Link> : null }</div>
-					<div>Favorites: {this.state.favorites.length} </div>
 
 					{ this.props.loggedIn ?
 						<div>
 							{ this.state.userFavorited == true ? 
-								<Icon onClick={this.handleFavoriteClick} name="star"/> 
+							   <Button as='div' labelPosition='right'>
+							      <Button color='grey'>
+							        <Icon name='star' onClick={this.handleFavoriteClick}/>
+							        Favorite
+							      </Button>
+							      <Label as='a' basic color='grey' pointing='left'>
+							        {this.state.favorites.length}
+							      </Label>
+							   </Button>
 								: 
-								<Icon onClick={this.handleFavoriteClick} name="star outline"/> 
+								<Button as='div' labelPosition='right'>
+							      <Button color='white'>
+							        <Icon name='star outline' onClick={this.handleFavoriteClick}/>
+							        Favorite
+							      </Button>
+							      <Label as='a' basic color='white' pointing='left'>
+							        {this.state.favorites.length}
+							      </Label>
+							   </Button> 
 							}
 
 							{ this.state.user_id ? 
@@ -257,7 +274,15 @@ class FeaturedMedia extends Component {
 							}
 						</div>
 						:
-						null
+						<Button as='div' labelPosition='right'>
+					      <Button color='white'>
+					        <Icon name='star outline'/>
+					        Favorite
+					      </Button>
+					      <Label as='a' basic color='white' pointing='left'>
+					        {this.state.favorites.length}
+					      </Label>
+					   </Button> 
 
 					}
 					
