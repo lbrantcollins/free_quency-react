@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Header, Segment, Divider, Container, Icon, Button, Label } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import './style.css'
 
 import EditMedia from '../EditMedia'
 import CommentList from '../CommentList'
@@ -244,13 +245,18 @@ class ShowMedia extends Component {
 
 				<td dangerouslySetInnerHTML={{__html: this.state.full_html}} /><br></br>
 				<Divider />
+
 				<Container textAlign='left'>
+
 					<a href={this.state.url}><Header as='h2'>{this.state.title}</Header></a>
-					<div>By: 
+
+					<div id="showpage-username">By: 
 						<Link to={'/user/' + (this.state.user_id ? this.state.user_id.id : null)}>
 							{this.state.user_id ? ' ' + this.state.user_id.username : null}
 						</Link>
 					</div>
+
+					<div id="favorites-button">
 					{this.props.loggedIn ?
 						<div>
 							{ this.state.userFavorited == true ? 
@@ -305,6 +311,8 @@ class ShowMedia extends Component {
 					        {this.state.favorites.length}
 					      </Label>
 					   </Button>  }
+
+					   </div>
 
 					<p>{this.state.description}</p>
 
