@@ -24,7 +24,7 @@ class Profile extends Component {
 
 		try {
 
-	      const userResponse = await fetch('http://localhost:8000/user/' + this.props.match.params.id, {
+	      const userResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/user/' + this.props.match.params.id, {
 	        	method: 'GET',
 	        	credentials: 'include',// on every request we have to send the cookie
 	        	headers: {

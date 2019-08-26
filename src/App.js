@@ -39,7 +39,7 @@ class App extends Component {
 
       try {
 
-         const allMediaResponse = await fetch('http://localhost:8000/media/')
+         const allMediaResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/media/')
 
          const parsedResponse = await allMediaResponse.json();
 
@@ -94,7 +94,7 @@ class App extends Component {
 
    logout = async (e) => {
 
-      const logoutResponse = await fetch('http://localhost:8000/user/logout')
+      const logoutResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/user/logout')
 
       const parsedResponse = await logoutResponse.json()
 
@@ -112,7 +112,7 @@ class App extends Component {
 
    logIn = async (loginInfo) => {
       try {
-         const loginResponse = await fetch('http://localhost:8000/user/login', {
+         const loginResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/user/login', {
             method: 'POST',
             credentials: 'include',
             body: loginInfo,
@@ -143,7 +143,7 @@ class App extends Component {
 
       try {
 
-         const registerResponse = await fetch('http://localhost:8000/user/register', {
+         const registerResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/user/register', {
             method: 'POST',
             credentials: 'include',// on every request we have to send the cookie
             body: data,
@@ -172,7 +172,7 @@ class App extends Component {
 
       try {
       
-         const addMediaResponse = await fetch('http://localhost:8000/media/', {
+         const addMediaResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/media/', {
             method: 'POST',
             credentials: 'include',// on every request we have to send the cookie
             body: data,
@@ -208,7 +208,7 @@ class App extends Component {
 
       try {
       
-      const updateProfileResponse = await fetch('http://localhost:8000/user/' + this.state.id, {
+      const updateProfileResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/user/' + this.state.id, {
         method: 'PUT',
         credentials: 'include',// on every request we have to send the cookie
         body: data,
@@ -286,7 +286,7 @@ class App extends Component {
 
       try {
       
-         const deleteMediaResponse = await fetch('http://localhost:8000/media/' + mediaId, {
+         const deleteMediaResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/media/' + mediaId, {
             method: 'DELETE',
             credentials: 'include',// on every request we have to send the cookie
             headers: {

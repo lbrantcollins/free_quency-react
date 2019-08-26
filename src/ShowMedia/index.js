@@ -32,7 +32,7 @@ class ShowMedia extends Component {
 
 		try {
 
-	      const mediaResponse = await fetch('http://localhost:8000/media/' + this.props.match.params.id, {
+	      const mediaResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/media/' + this.props.match.params.id, {
 	        	method: 'GET',
 	        	credentials: 'include',// on every request we have to send the cookie
 	        	headers: {
@@ -68,7 +68,7 @@ class ShowMedia extends Component {
 
 		try {
 	      
-	      const updateMediaResponse = await fetch('http://localhost:8000/media/' + this.state.id, {
+	      const updateMediaResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/media/' + this.state.id, {
 	        	method: 'PUT',
 	        	credentials: 'include',// on every request we have to send the cookie
 	        	body: data,
@@ -97,7 +97,7 @@ class ShowMedia extends Component {
 
     	try {
       
-      	const addCommentResponse = await fetch('http://localhost:8000/comment/', {
+      	const addCommentResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/comment/', {
         		method: 'POST',
         		credentials: 'include',// on every request we have to send the cookie
         		body: data,
@@ -127,7 +127,7 @@ class ShowMedia extends Component {
 
     	try {
       
-      	const deleteCommentResponse = await fetch('http://localhost:8000/comment/' + commentId, {
+      	const deleteCommentResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/comment/' + commentId, {
         		method: 'DELETE',
         		credentials: 'include'
       	})
@@ -163,7 +163,7 @@ class ShowMedia extends Component {
 
 	    	try {
 
-		    	const favoriteResponse = await fetch('http://localhost:8000/favorite/' + favId, {
+		    	const favoriteResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/favorite/' + favId, {
 		      	method: 'DELETE',
 			      credentials: 'include',// on every request we have to send the cookie
 			      headers: {
@@ -196,7 +196,7 @@ class ShowMedia extends Component {
 		    	data.append('user_id', this.props.userId);
 		    	data.append('media_id', this.state.id);
 
-		    	const favoriteResponse = await fetch('http://localhost:8000/favorite/', {
+		    	const favoriteResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/favorite/', {
 			      method: 'POST',
 			      credentials: 'include',// on every request we have to send the cookie
 			      body: data,
