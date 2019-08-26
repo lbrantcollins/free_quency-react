@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { Button, Form, Grid, Header, Image, Message, Menu, Segment, Container } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { Container } from 'semantic-ui-react';
+
 import MediaList from '../MediaList'
 import FeaturedMedia from '../FeaturedMedia'
 
@@ -30,6 +30,7 @@ const MyFavorites = (props) => {
 	return(
 
 		<Container>
+		
 			<FeaturedMedia makePrettyDate={props.makePrettyDate} loggedIn={props.loggedIn} updateFavorite={props.updateFavorite} userId={props.userId} media={featuredMedia} editMediaList={props.editMediaList} deleteMedia={props.deleteMedia}/>
 
 			<MediaList  medias={mediaList}/>

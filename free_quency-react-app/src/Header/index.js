@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Button, Form, Grid, Image, Message, Segment, Menu, Icon } from 'semantic-ui-react';
+import React from 'react';
+import { Menu, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 const Header = (props) => {
@@ -12,8 +12,6 @@ const Header = (props) => {
 					:
 					null
 				}
-
-
 
 				<Menu.Item><Link to='/browse-media'>Browse Media</Link></Menu.Item>
 
