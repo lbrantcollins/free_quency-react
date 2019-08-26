@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Button, Form, Grid, Header, Segment} from 'semantic-ui-react';
 
 class EditProfile extends Component {
-<<<<<<< HEAD
   constructor(){
     super();
 
@@ -27,36 +26,6 @@ class EditProfile extends Component {
   }
 
   handleChange = (e) => {
-    if(e.target.name !== 'image'){
-      this.setState({
-        [e.target.name]: e.target.value,
-        
-      });
-    } else {
-      // file upload
-=======
-   constructor(){
-      super();
-
-      this.state = {
-         username: '',
-         password: '',
-         email: '',
-         about_me: '',
-         image: '',
-         newImage: {},
-      }
-   }
-
-   componentDidMount() {
-
->>>>>>> fdfea4098190f383bd8509d97d17ea6747bce107
-      this.setState({
-         ...this.props.currentUser
-      }) 
-   }
-
-   handleChange = (e) => {
       if(e.target.name !== 'image'){
          this.setState({
             [e.target.name]: e.target.value,
@@ -66,8 +35,8 @@ class EditProfile extends Component {
          this.setState({
             newImage: e.target.files[0],
          });
+      }
     }
-  }
 
   handleSubmit = async (e) => {
     e.preventDefault();
@@ -122,7 +91,7 @@ class EditProfile extends Component {
             </Grid.Column>
          </Grid>
       )
-   }
+  }
 }
 
 export default EditProfile;
