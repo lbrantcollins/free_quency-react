@@ -23,10 +23,9 @@ const CommentList = (props) => {
 
 	return(
 
+
 		<div>
-			<Card>
 				{commentList}
-			</Card>
 
 			{ props.loggedIn  ?
 

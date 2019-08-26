@@ -12,18 +12,20 @@ const Comment = (props) => {
 
 	return (
 
-		<Card.Content>
-			<Card.Header>{props.comment.user_id.username}</Card.Header>
-			<Card.Meta>{date}</Card.Meta>
-			<Card.Meta>{props.comment.content}</Card.Meta>
-			{(props.comment.user_id.id === props.userId) && (props.loggedIn)
-				?
-					<Button onClick={props.deleteComment.bind(null, props.comment.id)}>
-						Delete
-					</Button>
-				: null
-			}	
-		</Card.Content>
+		<Card>
+			<Card.Content>
+				<Card.Header id="comment-header">{props.comment.user_id.username}</Card.Header>
+				<Card.Meta>{date}</Card.Meta>
+				<Card.Description>{props.comment.content}</Card.Description>
+				{(props.comment.user_id.id === props.userId) && (props.loggedIn)
+					?
+						<Button onClick={props.deleteComment.bind(null, props.comment.id)}>
+							Delete
+						</Button>
+					: null
+				}	
+			</Card.Content>
+		</Card>
 
 	)
 }
