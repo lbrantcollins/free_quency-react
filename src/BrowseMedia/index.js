@@ -5,14 +5,9 @@ import FeaturedMedia from '../FeaturedMedia'
 
 const BrowseMedia = (props) => {
 
-	console.log("BROWSE MEDIA PROPS")
-	console.log(props)
-
 	const randomIndex = Math.floor(Math.random() * props.medias.length)
 
 	const featuredMedia = props.medias[randomIndex]
-
-	console.log(featuredMedia, 'featuredMedia');
 
 	const mediaList = props.medias.filter( media => media.id !== featuredMedia.id )
 	
