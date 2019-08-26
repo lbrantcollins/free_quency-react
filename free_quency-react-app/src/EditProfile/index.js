@@ -7,6 +7,7 @@ class EditProfile extends Component {
     super();
 
     this.state = {
+      id: '',
       username: '',
       password: '',
       email: '',
@@ -21,6 +22,8 @@ class EditProfile extends Component {
     this.setState({
       ...this.props.currentUser
     }) 
+
+
   }
 
   handleChange = (e) => {
@@ -50,7 +53,11 @@ class EditProfile extends Component {
 
     data.append('file', this.state.newImage);
 
-    this.props.editProfile(data);
+    const updatedProfile = await this.props.editProfile(data);
+
+    console.log(updatedProfile); 
+
+    this.props.history.push('/user/' + this.props.currentUser.id)
 
   }
 

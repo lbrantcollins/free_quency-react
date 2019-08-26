@@ -2,43 +2,97 @@ import React, { Component } from 'react';
 import { Button, Form, Grid, Image, Message, Segment, Menu, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
-const Header = (props) => {
-	return(
+class Header extends Component {
 
-			<Menu>
+	constructor(){
+		super()
 
-				{ props.loggedIn ? 
-						<Menu.Item><Link to='/media/new'><Icon name="plus"/></Link></Menu.Item>
-					:
-					null
-				}
+		this.state = {
+			activeItem: 'browseMedia'
+		}
+	}
+
+	handleItemClick = (e, { name }) => {
+
+		console.log(name);
+
+		this.setState({ activeItem: name })
+	}
+
+	render(){
+		return(
+
+				<Menu>
+
+					{ this.props.loggedIn ? 
+							<Menu.Item 
+								name='addMedia'
+            				active={this.state.activeItem === 'addMedia'}
+            				onClick={this.handleItemClick}>
+            				<Link to='/media/new'><Icon name="plus"/></Link>
+            			</Menu.Item>
+						:
+						null
+					}
 
 
 
-				<Menu.Item><Link to='/browse-media'>Browse Media</Link></Menu.Item>
+					<Menu.Item
+						name='browseMedia'
+            		active={this.state.activeItem === 'browseMedia'}
+            		onClick={this.handleItemClick}>
+						<Link to='/browse-media'>Browse Media</Link>
+					</Menu.Item>
 
-				{ props.loggedIn ? 
-					<Menu.Menu>
-						<Menu.Item><Link to='/my-media'>My Media</Link></Menu.Item>
-						<Menu.Item><Link to='/my-favorites'>My Favorites</Link></Menu.Item>
-					</Menu.Menu> 
-					:
-					<Menu.Menu position='right'>
-						<Menu.Item><Link to='/login'>Login</Link></Menu.Item>
-						<Menu.Item><Link to='/register'>Register</Link></Menu.Item>
-					</Menu.Menu>
-				}
-				{ props.loggedIn ? 
-					<Menu.Menu position='right'>
-						<Menu.Item><Link to={ '/user/'+props.userId }>My Profile</Link></Menu.Item>
-						<Menu.Item onClick={props.logout}>Logout</Menu.Item>
-					</Menu.Menu>
-					:
-					null
-				}
-			</Menu>
+					{ this.props.loggedIn ? 
+						<Menu.Menu>
+							<Menu.Item
+								name='myMedia'
+				            active={this.state.activeItem === 'myMedia'}
+				            onClick={this.handleItemClick}>
+								<Link to='/my-media'>My Media</Link>
+							</Menu.Item>
+							<Menu.Item
+								name='myFavorites'
+				            active={this.state.activeItem === 'myFavorites'}
+				            onClick={this.handleItemClick}>
+								<Link to='/my-favorites'>My Favorites</Link>
+							</Menu.Item>
+						</Menu.Menu> 
+						:
+						<Menu.Menu position='right'>
+							<Menu.Item
+								name='login'
+				            active={this.state.activeItem === 'login'}
+				            onClick={this.handleItemClick}>
+								<Link to='/login'>Login</Link>
+							</Menu.Item>
+							<Menu.Item
+								name='register'
+				            active={this.state.activeItem === 'register'}
+				            onClick={this.handleItemClick}>
+								<Link to='/register'>Register</Link>
+							</Menu.Item>
+						</Menu.Menu>
+					}
+					{ this.props.loggedIn ? 
+						<Menu.Menu position='right'>
+							<Menu.Item
+								name='myProfile'
+				            active={this.state.activeItem === 'myProfile'}
+				            onClick={this.handleItemClick}>
+								<Link to={ '/user/'+this.props.userId }>My Profile</Link>
+							</Menu.Item>
+							<Menu.Item onClick={this.props.logout}>Logout</Menu.Item>
+						</Menu.Menu>
+						:
+						null
+					}
+				</Menu>
 
-	)
+		)
+
+	}
 }
 
 export default Header

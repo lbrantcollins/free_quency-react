@@ -125,6 +125,7 @@ class App extends Component {
   logIn = async (loginInfo) => {
     try {
 
+
       const loginResponse = await fetch('http://localhost:8000/user/login', {
         method: 'POST',
         credentials: 'include',
@@ -136,6 +137,7 @@ class App extends Component {
 
       const parsedResponse = await loginResponse.json();
 
+      console.log('LOGGED IN', parsedResponse.data);
       if (parsedResponse.status.code === 200) {
         this.setState({
           ...parsedResponse.data,
@@ -143,6 +145,8 @@ class App extends Component {
         })
 
       }
+
+      console.log(this.state);
 
       return parsedResponse
 
@@ -234,6 +238,14 @@ class App extends Component {
       })
 
       const parsedResponse = await updateProfileResponse.json();
+
+      console.log(parsedResponse);
+
+      this.setState({
+        ...parsedResponse.data
+      })
+
+      console.log(parsedResponse, 'parsedResponse after updating state');
 
       return parsedResponse
 
