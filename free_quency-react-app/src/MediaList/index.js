@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
-import { Card, Button, Form, Grid, Image, Message, Segment, Menu, Icon } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { Card } from 'semantic-ui-react';
 
 import Thumbnail from './Thumbnail'
 

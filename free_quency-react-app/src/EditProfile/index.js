@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Button, Form, Grid, Header, Image, Message, Segment} from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
+import { Button, Form, Grid, Header, Segment} from 'semantic-ui-react';
 
 class EditProfile extends Component {
+<<<<<<< HEAD
   constructor(){
     super();
 
@@ -34,10 +34,38 @@ class EditProfile extends Component {
       });
     } else {
       // file upload
+=======
+   constructor(){
+      super();
+
+      this.state = {
+         username: '',
+         password: '',
+         email: '',
+         about_me: '',
+         image: '',
+         newImage: {},
+      }
+   }
+
+   componentDidMount() {
+
+>>>>>>> fdfea4098190f383bd8509d97d17ea6747bce107
       this.setState({
-        newImage: e.target.files[0],
-      });
-      
+         ...this.props.currentUser
+      }) 
+   }
+
+   handleChange = (e) => {
+      if(e.target.name !== 'image'){
+         this.setState({
+            [e.target.name]: e.target.value,
+         });
+      } else {
+         // file upload
+         this.setState({
+            newImage: e.target.files[0],
+         });
     }
   }
 
@@ -87,13 +115,14 @@ class EditProfile extends Component {
               <Form.Input fluid icon='image' iconPosition='left' type="file" name='image' onChange={this.handleChange}/>
 
               <Button fluid size='large' type='sumbit'>Submit Changes</Button>
+
             
-            </Segment>
-          </Form>
-        </Grid.Column>
-      </Grid>
+                  </Segment>
+               </Form>
+            </Grid.Column>
+         </Grid>
       )
-  }
+   }
 }
 
 export default EditProfile;

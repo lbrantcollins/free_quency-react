@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form, Grid, Header, Image, Message, Segment, Divider, Container, Icon } from 'semantic-ui-react';
+import { Header, Segment, Divider, Container, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 import EditMedia from '../EditMedia'
@@ -78,41 +78,39 @@ class FeaturedMedia extends Component {
 		if (this.state.userFavorited) {
 	      // is fav was true, delete favorite from db
 
-	      	const favIndex = this.state.favorites.findIndex( favorite => this.props.userId === favorite.user_id.id)
+      	const favIndex = this.state.favorites.findIndex( favorite => this.props.userId === favorite.user_id.id)
 
-		    const favId = this.state.favorites[favIndex].id
+	    	const favId = this.state.favorites[favIndex].id
 
-		    try {
+	    	try {
 
-			    const favoriteResponse = await fetch('http://localhost:8000/favorite/' + favId, {
+		    	const favoriteResponse = await fetch('http://localhost:8000/favorite/' + favId, {
 			      method: 'DELETE',
 			      credentials: 'include',// on every request we have to send the cookie
 			      headers: {
 			        'enctype': 'multipart/form-data'
 			      }
-			   	})
+		   	})
 
-			    const parsedResponse = await favoriteResponse.json();
+		    	const parsedResponse = await favoriteResponse.json();
 
 				const newFavList = this.state.favorites.slice()
 
 				this.props.updateFavorite(null, this.state.id, favId)
 
-
 				newFavList.splice(favIndex, 1)
 
-			    this.setState({
+		    	this.setState({
 			      favorites: newFavList
-			    })
+		    	})
 
-		    } catch (err) {
-		      	console.log(err)
-		    }
+	    	} catch (err) {
+      		console.log(err)
+	    	}
 
-
-	    } else {
+    	} else {
 	      // else, add favorite from db
-	      	try {
+      	try {
 
 	      	const data = new FormData();
 			   data.append('user_id', this.props.userId);
@@ -123,9 +121,9 @@ class FeaturedMedia extends Component {
 			      credentials: 'include',// on every request we have to send the cookie
 			      body: data,
 			      headers: {
-			        'enctype': 'multipart/form-data'
+		        		'enctype': 'multipart/form-data'
 			      }
-			   	})
+		   	})
 
 			   const parsedResponse = await favoriteResponse.json();
 
@@ -135,54 +133,80 @@ class FeaturedMedia extends Component {
 
 				newFavList.push(parsedResponse.data)
 
-			    this.setState({
+		    	this.setState({
 			      favorites: newFavList
-			    })
+		    	})
 
-		    } catch (err) {
-		      	console.log(err)
-		    }
+	    	} catch (err) {
+	      	console.log(err)
+	    	}
 
-	    }
-
+    	}
 
 		this.setState({
 			userFavorited: !this.state.userFavorited
 		})
 
-
+		
 	}
 
 	addComment = async (data) => {
 
-	    try {
+    	try {
 	      
 	      const addCommentResponse = await fetch('http://localhost:8000/comment/', {
-	        method: 'POST',
-	        credentials: 'include',// on every request we have to send the cookie
-	        body: data,
-	        headers: {
-	          'enctype': 'multipart/form-data'
-	        }
+	        	method: 'POST',
+	        	credentials: 'include',// on every request we have to send the cookie
+	        	body: data,
+	        	headers: {
+	          	'enctype': 'multipart/form-data'
+	        	}
 	      })
 
 	      const parsedResponse = await addCommentResponse.json();
 
-	      const newList = this.state.comments
+	      const newList = this.state.comments.slice();
 
-	      newList.push(parsedResponse.data)
+	      newList.push(parsedResponse.data);
 
 	      this.setState({
-	        comment: newList
+	        	comment: newList
 	      })
 
 	      return parsedResponse
 
-
-	    } catch(err){
+    	} catch(err){
 	      console.log(err);
-	    }
+    	}
 	}
+
+	deleteComment = async (commentId) => {
+
+    	try {
+      
+	      const deleteCommentResponse = await fetch('http://localhost:8000/comment/' + commentId, {
+	        	method: 'DELETE',
+	        	credentials: 'include'
+	      })
+
+	      const parsedResponse = await deleteCommentResponse.json();
+
+	      let newList = this.state.comments.slice();
+
+	      newList = newList.filter( comment => comment.id !== commentId);
+
+	      await this.setState({
+	        	comments: newList
+	      })
+
+	      this.deleteCommentFromMedia(commentId);
+
+	      return parsedResponse;
+
+    	} catch(err) {
+   		console.log(err);
+    	}
+  	}
 
 	handleDelete = async () => {
 
@@ -190,11 +214,7 @@ class FeaturedMedia extends Component {
 
 		this.props.history.push('/browse-media')
 
-
 	}
-
-
-  
 
 	render(){
 		
@@ -244,7 +264,12 @@ class FeaturedMedia extends Component {
 
 					<p>{this.state.description}</p>
 
-					<CommentList makePrettyDate={this.props.makePrettyDate} comments={this.state.comments} mediaId={this.state.id} addComment={this.addComment}/>
+					<CommentList 
+						makePrettyDate={this.props.makePrettyDate} 
+						comments={this.state.comments} 
+						mediaId={this.state.id} 
+						addComment={this.addComment} 
+						deleteComment={this.deleteComment}/>
 
 				</Container>
 			</Segment>

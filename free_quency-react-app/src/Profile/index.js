@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form, Grid, Header, Image, Message, Menu, Segment} from 'semantic-ui-react';
+import { Menu } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import MediaList from '../MediaList'
 
@@ -24,22 +24,22 @@ class Profile extends Component {
 		try {
 
 	      const userResponse = await fetch('http://localhost:8000/user/' + this.props.match.params.id, {
-	        method: 'GET',
-	        credentials: 'include',// on every request we have to send the cookie
-	        headers: {
-	          'enctype': 'multipart/form-data'
-	        }
+	        	method: 'GET',
+	        	credentials: 'include',// on every request we have to send the cookie
+	        	headers: {
+	          	'enctype': 'multipart/form-data'
+	        	}
 	      })
 
 	      const parsedResponse = await userResponse.json();
 
 	      this.setState({
-	        ...parsedResponse.data
+	        	...parsedResponse.data
 	      })
 
-	    } catch (err) {
+    	} catch (err) {
 	      console.log(err)
-	    }
+    	}
 	}
 
 	toggleToPosted = () => {

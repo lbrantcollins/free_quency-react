@@ -1,102 +1,107 @@
 import React, { Component } from 'react';
-import { Button, Form, Grid, Header, Image, Message, Segment} from 'semantic-ui-react';
+import { Button, Form, Grid, Header, Message, Segment} from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 class Register extends Component {
-  constructor(){
-    super();
+   constructor(){
+      super();
 
-    this.state = {
-      username: '',
-      password: '',
-      email: '',
-      about: '',
-      image: {}
-    }
-  }
-  handleChange = (e) => {
-    if(e.target.name !== 'image'){
-      this.setState({[e.target.name]: e.target.value});
-    } else {
-      // file upload
-      this.setState({image: e.target.files[0]});
-    }
-  }
-  handleClick = async () => {
+      this.state = {
+         username: '',
+         password: '',
+         email: '',
+         about: '',
+         image: {}
+      }
+   }
+
+   handleChange = (e) => {
+      if(e.target.name !== 'image'){
+         this.setState({[e.target.name]: e.target.value});
+      } else {
+         // file upload
+         this.setState({image: e.target.files[0]});
+      }
+   }
+
+   handleClick = async () => {
+
+      try {
+
+         const registerResponse = await fetch('http://localhost:8000/user/1', {
+            method: 'GET',
+            credentials: 'include',// on every request we have to send the cookie
+            headers: {
+               'enctype': 'multipart/form-data'
+            }
+         })
+
+         const parsedResponse = await registerResponse.json();
+
+         this.setState({
+            ...parsedResponse.data,
+            loading: false
+         })
+
+         return parsedResponse;
+
+      } catch (err) {
+         console.log(err)
+      }
 
 
-    try {
-
-      const registerResponse = await fetch('http://localhost:8000/user/1', {
-        method: 'GET',
-        credentials: 'include',// on every request we have to send the cookie
-        headers: {
-          'enctype': 'multipart/form-data'
-        }
-      })
-
-      const parsedResponse = await registerResponse.json();
-
-      this.setState({
-        ...parsedResponse.data,
-        loading: false
-      })
-
-      return parsedResponse;
-
-    } catch (err) {
-      console.log(err)
-    }
+   }
 
 
-  }
-  handleSubmit = async (e) => {
-    e.preventDefault();
+   handleSubmit = async (e) => {
+      e.preventDefault();
 
-    const data = new FormData();
-    data.append('file', this.state.image);
-    data.append('username', this.state.username);
-    data.append('password', this.state.password);
-    data.append('about_me', this.state.about);
-    data.append('email', this.state.email);
+      const data = new FormData();
+      data.append('file', this.state.image);
+      data.append('username', this.state.username);
+      data.append('password', this.state.password);
+      data.append('about_me', this.state.about);
+      data.append('email', this.state.email);
 
-    const registerCall = await this.props.register(data);
+      const registerCall = await this.props.register(data);
 
-    this.props.history.push('/browse-media')
+      this.props.history.push('/browse-media')
 
-  }
+      return registerCall;
 
-  render() {
+   }
 
-    return (
+   render() {
+
+      return (
       
-      <Grid textAlign='center' verticalAlign='middle' style={{ height: '100vh'}}>
-        <Grid.Column style={{maxWidth: 450}}>
-          <Header as='h2' textAlign='center'>
-            Register
-          </Header>
-          <Form onSubmit={this.handleSubmit}>
-              <Segment stacked textAlign='left'>
-              Username:
-              <Form.Input fluid icon='user' iconPosition='left' placeholder='username' type='text' name='username' onChange={this.handleChange}/>
-              Email:
-              <Form.Input fluid icon='mail' iconPosition='left' placeholder='email' type='text' name='email' onChange={this.handleChange}/>
-              Password:
-              <Form.Input fluid icon='lock' iconPosition='left' type='password' name='password' onChange={this.handleChange}/>
-              About me:
-              <Form.TextArea icon='file alternate' iconPosition='left' rows='5' type='textarea' name='about' onChange={this.handleChange}/>
-              Profile image:
-              <Form.Input fluid icon='image' iconPosition='left' type="file" name='image' onChange={this.handleChange}/>
-              <Button fluid size='large' type='sumbit'>Register</Button>
+         <Grid textAlign='center' verticalAlign='middle' style={{ height: '100vh'}}>
+            <Grid.Column style={{maxWidth: 450}}>
+               <Header as='h2' textAlign='center'>
+                  Register
+               </Header>
+               <Form onSubmit={this.handleSubmit}>
+                  <Segment stacked textAlign='left'>
+                     Username:
+                     <Form.Input fluid icon='user' iconPosition='left' placeholder='username' type='text' name='username' onChange={this.handleChange}/>
+                     Email:
+                     <Form.Input fluid icon='mail' iconPosition='left' placeholder='email' type='text' name='email' onChange={this.handleChange}/>
+                     Password:
+                     <Form.Input fluid icon='lock' iconPosition='left' type='password' name='password' onChange={this.handleChange}/>
+                     About me:
+                     <Form.TextArea icon='file alternate' iconPosition='left' rows='5' type='textarea' name='about' onChange={this.handleChange}/>
+                     Profile image:
+                     <Form.Input fluid icon='image' iconPosition='left' type="file" name='image' onChange={this.handleChange}/>
+                     <Button fluid size='large' type='sumbit'>Register</Button>
 
-              <Message>
-                Already a member? <Link to='/'>Log in</Link>
-              </Message>
+                     <Message>
+                        Already a member? <Link to='/'>Log in</Link>
+                     </Message>
              
-              </Segment>
-          </Form>
-        </Grid.Column>
-      </Grid>
+                  </Segment>
+               </Form>
+            </Grid.Column>
+         </Grid>
       )
   }
 }
