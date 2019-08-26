@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 
 import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
-
+ 
 import Register from './Register'; 
 import Login from './Login'; 
 import EditProfile from './EditProfile'; 
