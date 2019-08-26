@@ -171,8 +171,15 @@ class FeaturedMedia extends Component {
 
 	      newList.push(parsedResponse.data);
 
+	      console.log('parsedResponse.data in addcomment in featureed media');
+	      console.log(parsedResponse.data);
+
+	      console.log('newList in addcomment in featured media');
+	      console.log(newList);
+
+
 	      this.setState({
-	        	comment: newList
+	        	comments: newList
 	      })
 
 	      return parsedResponse
@@ -290,6 +297,8 @@ class FeaturedMedia extends Component {
 					<p>{this.state.description}</p>
 
 					<CommentList 
+						loggedIn={this.props.loggedIn}
+						userId={this.props.userId}
 						makePrettyDate={this.props.makePrettyDate} 
 						comments={this.state.comments} 
 						mediaId={this.state.id} 
