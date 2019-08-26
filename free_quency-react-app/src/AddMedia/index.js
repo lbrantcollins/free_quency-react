@@ -19,7 +19,7 @@ class AddMedia extends Component {
       });
   }
 
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
 
     e.preventDefault();
 
@@ -28,7 +28,11 @@ class AddMedia extends Component {
     data.append('description', this.state.description);
     data.append('url', this.state.url);
 
-    this.props.addMedia(data)
+    const newMedia = await this.props.addMedia(data)
+
+    console.log(newMedia);
+
+    this.props.history.push('/media/' + newMedia.data.id)
 
   }
 

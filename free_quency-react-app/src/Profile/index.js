@@ -8,6 +8,7 @@ class Profile extends Component {
 		super(props)
 
 		this.state = {
+			id: null,
 			username: null,
 			image: null,
 			about_me: null,
@@ -63,6 +64,11 @@ class Profile extends Component {
 
 					<h1>{this.state.username}</h1>
 		             <img src={this.state.image} alt="existing profile"/>
+		             { this.state.id === this.props.userId ?
+		             	<Link to='/user/edit'>Edit Profile</Link>
+		             	:
+		             	null
+		             }
 		             <h2>About Me</h2>
 		             <p>{this.state.about_me}</p>
 

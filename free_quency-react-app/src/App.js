@@ -332,7 +332,7 @@ class App extends Component {
     return (
     
       <main>
-        <Header loggedIn={this.state.loggedIn} logout={this.logout}/>
+        <Header userId={this.state.id} loggedIn={this.state.loggedIn} logout={this.logout}/>
         <Switch>
           <Route exact path="/login" render={(props) => <Login {...props} logIn={this.logIn} />} />
 
@@ -356,7 +356,7 @@ class App extends Component {
 
         <Route exact path="/media/:id" render={(props) => <ShowMedia {...props} loggedIn={this.state.loggedIn} updateFavorite={this.updateFavorite} userId={this.state.id} editMediaList={this.editMediaList} makePrettyDate={this.makePrettyDate} deleteCommentFromMedia={this.deleteCommentFromMedia} deleteMedia={this.deleteMedia}/>} />
 
-        <Route exact path="/user/:id" render={(props) => <Profile {...props} user={this.state.tempUser} editProfile={this.editProfile} />} />
+        <Route exact path="/user/:id" render={(props) => <Profile {...props} editProfile={this.editProfile} userId={this.state.id} />} />
 
         </Switch>
         
