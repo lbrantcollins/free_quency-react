@@ -51,7 +51,7 @@ class Header extends Component {
 					<Menu.Item
 						className='Link'
 						name='browse-media'
-            		active={this.state.activeItem === 'browseMedia'}
+            		active={this.state.activeItem === 'browse-media'}
             		onClick={this.handleItemClick}>
 						<Link to='/browse-media'>Browse Media</Link>
 					</Menu.Item>
