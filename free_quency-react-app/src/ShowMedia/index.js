@@ -286,6 +286,8 @@ class ShowMedia extends Component {
 					<p>{this.state.description}</p>
 
 					<CommentList 
+						loggedIn={this.props.loggedIn}
+						userId={this.props.userId}
 						comments={this.state.comments} 
 						mediaId={this.state.id}
 						addComment={this.addComment} 

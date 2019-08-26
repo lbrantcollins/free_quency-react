@@ -12,6 +12,8 @@ const CommentList = (props) => {
 
 				<Comment 
 					key={comment.id} 
+					loggedIn={props.loggedIn}
+					userId={props.userId}
 					comment={comment} 
 					makePrettyDate={props.makePrettyDate} 
 					deleteComment={props.deleteComment}
@@ -26,10 +28,16 @@ const CommentList = (props) => {
 				{commentList}
 			</Card>
 
-			<AddComment 
-				mediaId={props.mediaId} 
-				addComment={props.addComment}
-			/>
+			{ props.loggedIn  ?
+
+				<AddComment 
+					mediaId={props.mediaId} 
+					addComment={props.addComment}
+				/>	
+		         
+		   	: null
+			}
+			
 		</div>
 
 	)
