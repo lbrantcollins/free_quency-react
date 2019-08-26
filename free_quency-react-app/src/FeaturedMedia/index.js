@@ -235,8 +235,9 @@ class FeaturedMedia extends Component {
 				<Divider />
 				<Container textAlign='left'>
 					<a href={this.state.url}><Header as='h2'>{this.state.title}</Header></a>
-					<div>By: { this.state.user_id ? <Link to={'/user/' + this.state.user_id.id}>{' ' + this.state.user_id.username}</Link> : null }</div>
+					<div id="showpage-username">By: { this.state.user_id ? <Link to={'/user/' + this.state.user_id.id}>{' ' + this.state.user_id.username}</Link> : null }</div>
 
+					<div id="favorites-button">
 					{ this.props.loggedIn ?
 						<div>
 							{ this.state.userFavorited == true ? 
@@ -293,6 +294,7 @@ class FeaturedMedia extends Component {
 					   </Button> 
 
 					}
+					</div>
 					
 
 					<p>{this.state.description}</p>
