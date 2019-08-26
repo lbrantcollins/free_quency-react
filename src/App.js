@@ -157,7 +157,7 @@ class App extends Component {
          if (parsedResponse.status.code === 201) {
             this.setState({
                ...parsedResponse.data,
-             logoggedIn: true
+             loggedIn: true
             })
          }
          return parsedResponse;

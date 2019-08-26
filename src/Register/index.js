@@ -24,35 +24,6 @@ class Register extends Component {
       }
    }
 
-   handleClick = async () => {
-
-      try {
-
-         const registerResponse = await fetch('http://localhost:8000/user/1', {
-            method: 'GET',
-            credentials: 'include',// on every request we have to send the cookie
-            headers: {
-               'enctype': 'multipart/form-data'
-            }
-         })
-
-         const parsedResponse = await registerResponse.json();
-
-         this.setState({
-            ...parsedResponse.data,
-            loading: false
-         })
-
-         return parsedResponse;
-
-      } catch (err) {
-         console.log(err)
-      }
-
-
-   }
-
-
    handleSubmit = async (e) => {
       e.preventDefault();
 

@@ -5,7 +5,8 @@ import FeaturedMedia from '../FeaturedMedia'
 
 const BrowseMedia = (props) => {
 
-	console.log(props.medias);
+	console.log("BROWSE MEDIA PROPS")
+	console.log(props)
 
 	const randomIndex = Math.floor(Math.random() * props.medias.length)
 
@@ -18,7 +19,14 @@ const BrowseMedia = (props) => {
 	return(
 
 		<Container>
-			<FeaturedMedia makePrettyDate={props.makePrettyDate} loggedIn={props.loggedIn} updateFavorite={props.updateFavorite} userId={props.userId} media={featuredMedia} editMediaList={props.editMediaList} deleteMedia={props.deleteMedia}/>
+			{ !featuredMedia ? null : <FeaturedMedia 
+				makePrettyDate={props.makePrettyDate} 
+				loggedIn={props.loggedIn} 
+				updateFavorite={props.updateFavorite} 
+				userId={props.userId} 
+				media={featuredMedia} 
+				editMediaList={props.editMediaList} 
+				deleteMedia={props.deleteMedia} />}
 
 			<MediaList  medias={mediaList}/>
 

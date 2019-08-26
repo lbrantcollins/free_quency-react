@@ -26,7 +26,8 @@ class FeaturedMedia extends Component {
 
 	async componentDidMount(){
 
-		console.log(this.props.media, 'MEDIA PROPS IN FEATURED');
+		console.log('MEDIA PROPS IN FEATURED');
+		console.log(this.props) 
 
 		await this.setState({
 			...this.props.media
@@ -227,6 +228,11 @@ class FeaturedMedia extends Component {
 
 	render(){
 		
+		console.log("FEATURED MEDIA PROPS:")
+		console.log(this.props)
+		console.log("FEATURED MEDIA STATE:")
+		console.log(this.state)
+
 		return(
 
 			<Segment raised className='feature'>
