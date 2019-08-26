@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Menu, Icon, Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import '../semantic-ui-css/semantic.min.css'
+import './style.css'
 
 class Header extends Component {
 
@@ -23,7 +25,14 @@ class Header extends Component {
 	render(){
 		return(
 
-				<Menu>
+				<Menu className='nav'>
+
+					<Menu.Item >
+						<h2 className='logo'>
+					    <Icon name='tv' />
+					    FREE_quency
+					  </h2>
+					</Menu.Item>
 
 					{ this.props.loggedIn ? 
 							<Menu.Item 

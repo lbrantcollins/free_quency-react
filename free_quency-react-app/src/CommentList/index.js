@@ -25,7 +25,9 @@ const CommentList = (props) => {
 
 
 		<div>
-				{commentList}
+			<h3>Comments:</h3>
+			
+			{commentList}
 
 			{ props.loggedIn  ?
 

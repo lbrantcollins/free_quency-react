@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Menu } from 'semantic-ui-react';
+import { Menu, Segment } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import MediaList from '../MediaList'
 
@@ -63,7 +63,7 @@ class Profile extends Component {
 
 		return (
 
-			<div>
+			<Segment>
 				<div>
 
 					<h1>{this.state.username}</h1>
@@ -97,7 +97,7 @@ class Profile extends Component {
 				{this.state.showPostedMedia ? <MediaList medias={this.state.posted_media}/> : <MediaList medias={this.state.favorited_media}/>}
 
 
-			</div>
+			</Segment>
 
 		)
 	}

@@ -240,23 +240,23 @@ class ShowMedia extends Component {
 		
 		return(
 
-			<Segment>
+			<Segment raised className='feature'>
 
-				<td dangerouslySetInnerHTML={{__html: this.state.full_html}} />
+				<td dangerouslySetInnerHTML={{__html: this.state.full_html}} /><br></br>
 				<Divider />
 				<Container textAlign='left'>
 					<a href={this.state.url}><Header as='h2'>{this.state.title}</Header></a>
 					<div>By: 
 						<Link to={'/user/' + (this.state.user_id ? this.state.user_id.id : null)}>
-							{this.state.user_id ? this.state.user_id.username : null}
+							{this.state.user_id ? ' ' + this.state.user_id.username : null}
 						</Link>
 					</div>
 					{this.props.loggedIn ?
 						<div>
 							{ this.state.userFavorited == true ? 
-								<Button as='div' labelPosition='right'>
+								<Button as='div' labelPosition='right' onClick={this.handleFavoriteClick}>
 							      <Button color='grey'>
-							        <Icon name='star' onClick={this.handleFavoriteClick}/>
+							        <Icon name='star'/>
 							        Favorite
 							      </Button>
 							      <Label as='a' basic color='grey' pointing='left'>
@@ -264,9 +264,9 @@ class ShowMedia extends Component {
 							      </Label>
 							   </Button>
 								: 
-								<Button as='div' labelPosition='right'>
+								<Button as='div' labelPosition='right' onClick={this.handleFavoriteClick}>
 							      <Button color='white'>
-							        <Icon name='star outline' onClick={this.handleFavoriteClick}/>
+							        <Icon name='star outline'/>
 							        Favorite
 							      </Button>
 							      <Label as='a' basic color='white' pointing='left'>
@@ -280,6 +280,7 @@ class ShowMedia extends Component {
 								{	this.props.userId === this.state.user_id.id ?
 									<div>
 										<Link onClick={this.toggleEdit}>Edit</Link>
+										{' || '} 
 										<Link onClick={this.handleDelete}>Delete</Link>
 										{this.state.editActive ? <EditMedia media={this.state} handleEdit={this.handleEdit}/> : null}
 									</div>
