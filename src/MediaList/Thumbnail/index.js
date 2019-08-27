@@ -16,7 +16,7 @@ const Thumbnail = (props) => {
 					<Image src={props.media.thumbnail_html} fluid/>
 				</Link> 
 
-				<Card.Header id="thumbnail-header">Title: {props.media.title}</Card.Header>
+				<Card.Header id="thumbnail-header">{props.media.title}</Card.Header>
 
 				<Card.Meta>{props.media.favorites.length} Favorites</Card.Meta>
 

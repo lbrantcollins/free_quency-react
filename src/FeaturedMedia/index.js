@@ -222,7 +222,7 @@ class FeaturedMedia extends Component {
 
 		await this.props.deleteMedia(this.state.id)
 
-		this.props.history.push('/browse-media')
+		// this.props.history.push('/browse-media')
 
 	}
 

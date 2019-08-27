@@ -34,6 +34,9 @@ class Register extends Component {
       data.append('about_me', this.state.about);
       data.append('email', this.state.email);
 
+      console.log('------------ data in register on react side');
+      console.log(data);
+      
       const registerCall = await this.props.register(data);
 
       this.props.history.push('/browse-media')
