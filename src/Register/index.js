@@ -35,7 +35,7 @@ class Register extends Component {
       data.append('email', this.state.email);
 
       // check that data is populated
-      for (pair of formData.entries()) {
+      for (let pair of data.entries()) {
          console.log(pair[0]+ ', ' + pair[1]); 
       }
 
