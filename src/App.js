@@ -219,7 +219,7 @@ class App extends Component {
 
       const parsedResponse = await updateProfileResponse.json();
 
-      console.log(parsedResponse);
+      // console.log(parsedResponse);
 
       this.setState({
         ...parsedResponse.data
